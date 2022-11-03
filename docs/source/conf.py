@@ -46,9 +46,15 @@ autodoc_default_options = {
     "special-members": "__init__",
 }
 
-# The following are highly optional, so we mock them for doc purposes.
-autodoc_mock_imports = ["pyanitools", "seqm", "schnetpack", "cupy", "lammps"]
+import importlib
 
+autodoc_mock_imports = ["pyanitools", "seqm", "schnetpack", "lammps", "ase", "graphviz", "numba", "cupy"]
+for pkg in autodoc_mock_imports:
+    try:
+        importlib.import_module(pkg)
+        autodoc_mock_imports.remove(pkg)
+    except ImportError as error:
+        pass
 
 # -- Options for HTML output -------------------------------------------------
 
