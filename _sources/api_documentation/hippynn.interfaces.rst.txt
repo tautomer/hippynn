@@ -14,6 +14,5 @@ Subpackages
    :maxdepth: 5
 
    hippynn.interfaces.ase_interface
-   hippynn.interfaces.lammps_interface
    hippynn.interfaces.pyseqm_interface
    hippynn.interfaces.schnetpack_interface

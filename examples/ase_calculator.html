@@ -3,10 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ASE Calculators &mdash; hippynn 0.0.1b4 documentation</title>
+  <title>ASE Calculators &mdash; hippynn 0.0.1b2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -20,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="LAMMPS interface" href="mliap_unified.html" />
+    <link rel="next" title="User Guide" href="../user_guide/index.html" />
     <link rel="prev" title="Restarting training" href="restarting.html" /> 
 </head>
 
@@ -41,7 +40,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">How to install hippynn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">How to install</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="minimal_workflow.html">Minimal Workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="controller.html">Controller</a></li>
@@ -51,7 +50,6 @@
 <li class="toctree-l2"><a class="reference internal" href="forces.html">Force Training</a></li>
 <li class="toctree-l2"><a class="reference internal" href="restarting.html">Restarting training</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">ASE Calculators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mliap_unified.html">LAMMPS interface</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
@@ -80,7 +78,7 @@
       </li>
   </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
         <a href="restarting.html" class="btn btn-neutral float-left" title="Restarting training" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="mliap_unified.html" class="btn btn-neutral float-right" title="LAMMPS interface" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../user_guide/index.html" class="btn btn-neutral float-right" title="User Guide" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
   </div>
   <hr/>
 </div>
@@ -89,7 +87,7 @@
              
   <div class="section" id="ase-calculators">
 <h1>ASE Calculators<a class="headerlink" href="#ase-calculators" title="Permalink to this heading"></a></h1>
-<p>Hippynn models can be used with <code class="docutils literal notranslate"><span class="pre">ase</span></code> to perform molecular dynamics or other tests.</p>
+<p>Hippynn models can be used with <cite>ase</cite> to perform molecular dynamics or other tests.</p>
 <p>To build an ASE calculator, you must pass the node associated with energy.
 Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hippynn.interfaces.ase_interface</span> <span class="kn">import</span> <span class="n">HippynnCalculator</span>
@@ -98,17 +96,17 @@ Example:</p>
 <span class="n">calc</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Take note of the <code class="docutils literal notranslate"><span class="pre">en_unit</span></code> and <code class="docutils literal notranslate"><span class="pre">dist_unit</span></code> parameters for the calculator.
+<p>Take note of the <cite>en_unit</cite> and <cite>dist_unit</cite> parameters for the calculator.
 These parameters inform the calculator what units the model consumes and produces for energy and
-for distance. If unspecified, the <code class="docutils literal notranslate"><span class="pre">en_unit</span></code> is kcal/mol, and the <code class="docutils literal notranslate"><span class="pre">dist_unit</span></code> is angstrom.
-Whatever units your model uses, the output of the calculator will be in the <code class="docutils literal notranslate"><span class="pre">ase</span></code> unit system,
+for distance. If unspecified, the <cite>en_unit</cite> is kcal/mol, and the <cite>dist_unit</cite> is angstrom.
+Whatever units your model uses, the output of the calculator will be in the <cite>ase</cite> unit system,
 which has energy in eV and distance in Angstroms.</p>
 <p>Given an ase atoms object, one can assign the calculator:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc</span>
 </pre></div>
 </div>
 <p>And proceed to perform whatever simulation is desired.</p>
-<p>The <a class="reference internal" href="../api_documentation/hippynn.interfaces.ase_interface.html#hippynn.interfaces.ase_interface.HippynnCalculator" title="hippynn.interfaces.ase_interface.HippynnCalculator"><code class="xref py py-class docutils literal notranslate"><span class="pre">HippynnCalculator</span></code></a> also supports a charge node for charge and dipole predictions,
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">HippynnCalculator</span></code> also supports a charge node for charge and dipole predictions,
 and generates calculations for force and stress based on the energy using pytorch’s
 automatic differentiation capabilities.</p>
 </div>
@@ -118,7 +116,7 @@ automatic differentiation capabilities.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="restarting.html" class="btn btn-neutral float-left" title="Restarting training" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="mliap_unified.html" class="btn btn-neutral float-right" title="LAMMPS interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../user_guide/index.html" class="btn btn-neutral float-right" title="User Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
