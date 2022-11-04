@@ -3,7 +3,8 @@ name: Auto build HIPPYNN docs and publish on GitHub Pages
 on:
   push:
     branches:    
-      - main
+      - development
+      - gh_actions
   workflow_dispatch:
 
 jobs:
@@ -30,18 +31,7 @@ jobs:
     # ===============================
     - name: Commit documentation changes
       run: |
-        if git ls-remote --exit-code --heads https://github.com/${{ github.repository }}.git "gh_pages"; then
-            echo "branch exists"
-            git clone https://github.com/${{ github.repository }}.git --branch gh-pages --single-branch gh-pages
-        else
-            # if the branch doesn't exist, create it
-            git clone https://github.com/${{ github.repository }}.git gh-pages
-            cd gh-pages 
-            git switch --orphan gh-pages
-            cd ..
-        fi
-        # if git doesn't quit cleanly
-        if [[ $? -eq 128 ]]
+        git clone https://github.com/${{ github.repository }}.git --branch gh-pages --single-branch gh-pages
         cp -r docs/build/html/* gh-pages/
         cd gh-pages
         touch .nojekyll
