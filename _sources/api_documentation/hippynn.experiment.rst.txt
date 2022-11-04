@@ -16,6 +16,7 @@ Submodules
 
    hippynn.experiment.assembly
    hippynn.experiment.controllers
+   hippynn.experiment.device
    hippynn.experiment.evaluator
    hippynn.experiment.metric_tracker
    hippynn.experiment.routines
