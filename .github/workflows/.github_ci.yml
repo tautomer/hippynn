@@ -10,7 +10,7 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 5
+      max-parallel: 4
       matrix:
         python-version: ['3.7', '3.8', '3.9', '3.10']
 
@@ -22,7 +22,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        pip install . && pip install matplotlib numba cupy pytest
+        # remove numba and cupy, as GitHub's GPU runner is not yet available
+        # https://github.com/orgs/github/projects/4247/views/1?filterQuery=GPU
+        pip install . && pip install matplotlib pytest
     - name: Test with pytest
       run: |
         cd tests
