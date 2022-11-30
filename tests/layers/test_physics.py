@@ -6,10 +6,6 @@ import torch
 
 class TestDipoleLayer(unittest.TestCase):
 
-    # initialize the dipole layer
-    from hippynn.layers.physics import Dipole
-
-    dipole_layer = Dipole()
     # random number of molecules, atoms, and states
     n_mol, n_atoms, n_states = np.random.randint(2, 8, 3)
     # random initial positions and charges
@@ -17,6 +13,12 @@ class TestDipoleLayer(unittest.TestCase):
     positions = np.random.rand(n_mol * n_atoms, 3).astype("f")
     charges = np.random.rand(n_mol * n_atoms, n_states).astype("f")
     mol_index = np.repeat(np.arange(n_mol), n_atoms)
+
+    def setUp(self):
+        # initialize the dipole layer
+        from hippynn.layers.physics import Dipole
+
+        self.dipole_layer = Dipole()
 
     def _dipole_numpy(self, charges: np.ndarray, positions: np.ndarray, mol_index: np.ndarray):
         """Same function as hippynn.layers.physics.Dipole.forward, but implemented in numpy.

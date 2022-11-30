@@ -27,12 +27,12 @@ else:
         GPU_AVAILABLE = True
     # software
     CUDA_AVAILABLE = True
-    # if PyTorch is compiled with CUDA and CUDA driver is available
+    CUDA_ERROR = RuntimeError
+    # if PyTorch is compiled with CUDA and Nvidia driver is available
+    # FIXME: a better way to check if Nvidia driver is installed
     if shutil.which("nvidia-smi"):
-        CUDA_ERROR = RuntimeError
         CUDA_NOT_AVAILABLE_MESSAGE = "No CUDA GPUs are available"
     else:
-        CUDA_ERROR = AssertionError
         CUDA_NOT_AVAILABLE_MESSAGE = "Found no NVIDIA driver on your system"
 
 MAP_LOCATION_MESSAGE = "Attempting to deserialize object"
