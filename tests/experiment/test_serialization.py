@@ -1,24 +1,42 @@
 import contextlib
-from copy import copy
 import os
+import shutil
 import unittest
+from copy import copy
 from pathlib import Path
 
 import torch
 
-
 CWD = os.getcwd()
 NULL = open(os.devnull, "w")
 TESTS_ROOT_DIR = Path(__file__).parent.parent.absolute()
-INVALID_DEVICE_MESSAGE = "CUDA error: invalid device ordinal"
-CUDA_NOT_AVAILABLE_MESSAGE = "No CUDA GPUs are available"
-MAP_LOCATION_MESSAGE = "Attempting to deserialize object"
-
-if torch.cuda.is_available():
-    GPU_AVAILABLE = True
-    GPU_COUNT = torch.cuda.device_count()
-else:
+if not hasattr(torch._C, "_cuda_getDeviceCount"):
+    # hardware
     GPU_AVAILABLE = False
+    GPU_COUNT = 0
+    # software
+    CUDA_AVAILABLE = False
+    # Error message is different for CPU only PyTorch
+    CUDA_ERROR = AssertionError
+    CUDA_NOT_AVAILABLE_MESSAGE = "Torch not compiled with CUDA enabled"
+else:
+    GPU_COUNT = torch._C._cuda_getDeviceCount()
+    if GPU_COUNT == 0:
+        GPU_AVAILABLE = False
+    else:
+        GPU_AVAILABLE = True
+    # software
+    CUDA_AVAILABLE = True
+    # if PyTorch is compiled with CUDA and CUDA driver is available
+    if shutil.which("nvidia-smi"):
+        CUDA_ERROR = RuntimeError
+        CUDA_NOT_AVAILABLE_MESSAGE = "No CUDA GPUs are available"
+    else:
+        CUDA_ERROR = AssertionError
+        CUDA_NOT_AVAILABLE_MESSAGE = "Found no NVIDIA driver on your system"
+
+MAP_LOCATION_MESSAGE = "Attempting to deserialize object"
+INVALID_DEVICE_MESSAGE = "CUDA error: invalid device ordinal"
 
 # find the first non-scalar tensor and check its device
 def check_state_dict(d: dict, target_device):
@@ -120,7 +138,7 @@ class TestRestarting(unittest.TestCase):
                 {
                     "simple": (RuntimeError, MAP_LOCATION_MESSAGE),
                     "auto": torch.device("cpu"),
-                    "gpu_0": (RuntimeError, CUDA_NOT_AVAILABLE_MESSAGE),
+                    "gpu_0": (CUDA_ERROR, CUDA_NOT_AVAILABLE_MESSAGE),
                 }
             )
         self._run_tests(test_options, "gpu0")
@@ -143,7 +161,7 @@ class TestRestarting(unittest.TestCase):
                 {
                     "simple": (RuntimeError, MAP_LOCATION_MESSAGE),
                     "auto": torch.device("cpu"),
-                    "gpu_0": (RuntimeError, CUDA_NOT_AVAILABLE_MESSAGE),
+                    "gpu_0": (CUDA_ERROR, CUDA_NOT_AVAILABLE_MESSAGE),
                 }
             )
         self._run_tests(test_options, "gpu1")
@@ -159,7 +177,7 @@ class TestRestarting(unittest.TestCase):
             self.expected_results.update(
                 {
                     "auto": torch.device("cpu"),
-                    "gpu_0": (RuntimeError, CUDA_NOT_AVAILABLE_MESSAGE),
+                    "gpu_0": (CUDA_ERROR, CUDA_NOT_AVAILABLE_MESSAGE),
                 }
             )
         self._run_tests(test_options, "cpu")
