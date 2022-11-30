@@ -24,7 +24,7 @@ jobs:
       run: |
         # remove numba and cupy, as GitHub's GPU runner is not yet available
         # https://github.com/orgs/github/projects/4247/views/1?filterQuery=GPU
-        pip install matplotlib pytest torch --extra-index-url https://download.pytorch.org/whl/cpu && pip install .
+        pip install matplotlib pytest torch && pip install .
     - name: Test with pytest
       run: |
         cd tests
