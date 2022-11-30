@@ -1,7 +1,6 @@
 import unittest
 
 import numpy as np
-from sklearn.feature_selection import SelectFdr
 import torch
 
 
