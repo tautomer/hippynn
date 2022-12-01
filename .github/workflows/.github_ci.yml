@@ -11,25 +11,26 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        - os: ubuntu-latest
-          python-version: 3.10
-          label: linux-64-py-3-10
-          prefix: /usr/share/miniconda3/envs/my-env
-          
-        - os: ubuntu-latest
-          python-version: 3.9
-          label: linux-64-py-3-9
-          prefix: /usr/share/miniconda3/envs/my-env
-          
-        - os: ubuntu-latest
-          python-version: 3.8
-          label: linux-64-py-3-8
-          prefix: /usr/share/miniconda3/envs/my-env
+        include:
+          - os: ubuntu-latest
+            python-version: 3.10
+            label: linux-64-py-3-10
+            prefix: /usr/share/miniconda3/envs/my-env
+            
+          - os: ubuntu-latest
+            python-version: 3.9
+            label: linux-64-py-3-9
+            prefix: /usr/share/miniconda3/envs/my-env
+            
+          - os: ubuntu-latest
+            python-version: 3.8
+            label: linux-64-py-3-8
+            prefix: /usr/share/miniconda3/envs/my-env
 
-        - os: ubuntu-latest
-          python-version: 3.7
-          label: linux-64-py-3-7
-          prefix: /usr/share/miniconda3/envs/my-env
+          - os: ubuntu-latest
+            python-version: 3.7
+            label: linux-64-py-3-7
+            prefix: /usr/share/miniconda3/envs/my-env
           
     steps:
     - uses: actions/checkout@v3
