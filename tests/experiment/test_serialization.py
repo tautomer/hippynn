@@ -1,9 +1,11 @@
 import contextlib
 import os
+from re import S
 import shutil
 import unittest
 from copy import copy
 from pathlib import Path
+from exceptiongroup import catch
 
 import torch
 
@@ -49,9 +51,11 @@ def check_state_dict(d: dict, target_device):
             assert v.device == target_device
             return
         elif isinstance(v, dict):
-            return check_state_dict(v, target_device)
-        else:
-            raise ValueError("Not sure if this ever happens")
+            check_state_dict(v, target_device)
+
+
+def check_model_device(model: torch.nn.Module, device: torch.device):
+    assert next(model.parameters()).device == device
 
 
 def check_tensor_devices(checkpoint: dict, device: torch.device):
@@ -59,7 +63,7 @@ def check_tensor_devices(checkpoint: dict, device: torch.device):
     controller = checkpoint["controller"]
 
     # model should be on `device`
-    assert next(training_modules.model.parameters()).device == device
+    check_model_device(training_modules.model, device)
     # evaluator.model should be on `device`
     assert next(training_modules.evaluator.model.parameters()).device == device
     # loss should be on `device`
@@ -73,13 +77,20 @@ def check_tensor_devices(checkpoint: dict, device: torch.device):
     check_state_dict(controller.optimizer.state_dict(), device)
 
 
-def load_checkpoint_with_redirect(kwargs):
+def load_checkpoint_with_redirect(**kwargs):
     from hippynn.experiment.serialization import load_checkpoint_from_cwd
 
     with contextlib.redirect_stdout(NULL), contextlib.redirect_stderr(NULL):
         checkpoint = load_checkpoint_from_cwd(**kwargs)
-    # checkpoint = load_checkpoint_from_cwd(**kwargs)
     return checkpoint
+
+
+def load_model_with_redirect(**kwargs):
+    from hippynn.experiment.serialization import load_model_from_cwd
+
+    with contextlib.redirect_stdout(NULL), contextlib.redirect_stderr(NULL):
+        model = load_model_from_cwd(**kwargs)
+    return model
 
 
 # TODO: add load model tests without duplicating too much code
@@ -188,11 +199,46 @@ class TestRestarting(unittest.TestCase):
             kwargs = self.possible_options[option]
             expected_result = self.expected_results[option]
             if type(expected_result) == torch.device:
-                checkpoint = load_checkpoint_with_redirect(kwargs)
+                checkpoint = load_checkpoint_with_redirect(**kwargs)
                 check_tensor_devices(checkpoint, expected_result)
-                del checkpoint
+                model = load_model_with_redirect(**kwargs)
+                check_model_device(model, expected_result)
+                del checkpoint, model
             else:
                 error, message = expected_result
                 with self.assertRaises(error) as cm:
-                    checkpoint = load_checkpoint_with_redirect(kwargs)
+                    checkpoint = load_checkpoint_with_redirect(**kwargs)
                 self.assertIn(message, str(cm.exception))
+                # if only model is loaded, the behavior will be completely different, skip for now
+                # TODO: better way to implement these tests
+                if option == "wrong_map_to_gpu":
+                    continue
+                with self.assertRaises(error) as cm:
+                    model = load_model_with_redirect(**kwargs)
+                self.assertIn(message, str(cm.exception))
+
+
+class TestCreateState(unittest.TestCase):
+    def test_create_state(self):
+        from hippynn.experiment.serialization import create_state
+
+        os.chdir(f"{TESTS_ROOT_DIR}/assets/models/cpu")
+        state_on_disk = torch.load("best_checkpoint.pt")
+        torch.random.set_rng_state(state_on_disk["torch_rng_state"])
+        checkpoint = load_checkpoint_with_redirect()
+        model = checkpoint["training_modules"].model
+        new_state = create_state(model, checkpoint["controller"], state_on_disk["metric_tracker"])
+        self._compare_dict_with_tensors(state_on_disk, new_state)
+
+    def _compare_dict_with_tensors(self, d1: dict, d2: dict):
+        for k, v in d1.items():
+            if isinstance(v, torch.Tensor):
+                self.assertTrue(torch.equal(v, d2[k]))
+            elif isinstance(v, dict):
+                self._compare_dict_with_tensors(v, d2[k])
+            else:
+                # the best_epoch in the scheduler can be weird
+                # skip it for now
+                if k == "scheduler":
+                    continue
+                self.assertEqual(v, d2[k])

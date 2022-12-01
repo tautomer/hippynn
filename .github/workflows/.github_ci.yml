@@ -67,7 +67,7 @@ jobs:
         HIPPYNN_USE_CUSTOM_KERNELS=0 pytest --cov=hippynn tests
     # send coverage to coveralls.io
     - name: Coveralls
-      if:  matrix.label == 'linux-64-py-3-10' && github.event_name != 'push' 
+      if:  matrix.label == 'linux-64-py-3-10' && github.event_name == 'push' 
       continue-on-error: True
       uses: coverallsapp/github-action@master
       with:
