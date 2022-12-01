@@ -4,10 +4,10 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - coveralls=3.3.1
-  - numpy=1.23.4
-  - matplotlib=3.5.3
-  - pytest=7.1.2
-  - pytest-cov=3.0.0
+  - coveralls
+  - numpy
+  - matplotlib
+  - pytest
+  - pytest-cov
   - pytorch=1.13.0
-  - cpuonly=2.0
+  - cpuonly
