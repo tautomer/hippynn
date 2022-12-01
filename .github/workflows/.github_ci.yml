@@ -9,7 +9,7 @@ jobs:
   build-linux:
     runs-on: ${{ matrix.os }}
     strategy:
-      max-parallel: 4
+      # max-parallel: 4
       matrix:
         include:
           - os: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         miniforge-variant: Mambaforge
-        channels: conda-forge
+        channels: pytorch,conda-forge,defaults
         channel-priority: strict
         activate-environment: my-env
         use-mamba: true
