@@ -2,30 +2,73 @@ name: Unit tests for Python 3.7+
 
 on:
   push:
-    branches:    
-      - unittest
+  pull_request:
   workflow_dispatch:
 
 jobs:
   build-linux:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 4
       matrix:
-        python-version: ['3.7', '3.8', '3.9', '3.10']
+        - os: ubuntu-latest
+          python-version: 3.10
+          label: linux-64-py-3-10
+          prefix: /usr/share/miniconda3/envs/my-env
+          
+        - os: ubuntu-latest
+          python-version: 3.9
+          label: linux-64-py-3-9
+          prefix: /usr/share/miniconda3/envs/my-env
+          
+        - os: ubuntu-latest
+          python-version: 3.8
+          label: linux-64-py-3-8
+          prefix: /usr/share/miniconda3/envs/my-env
 
+        - os: ubuntu-latest
+          python-version: 3.7
+          label: linux-64-py-3-7
+          prefix: /usr/share/miniconda3/envs/my-env
+          
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v3
+    - name: Set up environment
+      run: cp .ci_support/environment.yml environment.yml
+    - name: Setup Mambaforge
+      uses: conda-incubator/setup-miniconda@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+        miniforge-variant: Mambaforge
+        channels: conda-forge
+        channel-priority: strict
+        activate-environment: my-env
+        use-mamba: true
+    - name: Set cache date and number
       run: |
-        # remove numba and cupy, as GitHub's GPU runner is not yet available
-        # https://github.com/orgs/github/projects/4247/views/1?filterQuery=GPU
-        pip install matplotlib pytest torch && pip install .
+        echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
+        cat .github/variables/cache_number.env >> $GITHUB_ENV
+    - uses: actions/cache@v2
+      with:
+        path: ${{ matrix.prefix }}
+        key: ${{ matrix.label }}-conda-${{ hashFiles('environment.yml') }}-${{ env.DATE }}-${{ env.CACHE_NUMBER }}
+      id: cache
+    - name: Update environment
+      run: mamba env update -n my-env -f environment.yml
+      if: steps.cache.outputs.cache-hit != 'true'  
+    - name: Set up HIPPYNN
+      shell: bash -l {0}
+      run: |
+        pip install --no-deps .
     - name: Test with pytest
+      shell: bash -l {0}
       run: |
-        cd tests
-        HIPPYNN_USE_CUSTOM_KERNELS=0 pytest
+        HIPPYNN_USE_CUSTOM_KERNELS=0 pytest --cov=hippynn tests
+    # send coverage to coveralls.io
+    - name: Coveralls
+      if:  matrix.label == 'linux-64-py-3-10' && github.event_name != 'push' 
+      continue-on-error: True
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        
