@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Library Settings &mdash; hippynn 0.0.1b4 documentation</title>
+  <title>Library Settings &mdash; hippynn 0.0.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
@@ -93,7 +93,7 @@
 <ol class="arabic simple">
 <li><p>Default values</p></li>
 <li><p>The file <cite>~/.hippynnrc</cite>, which is a standard python config file which contains
-variables under the section [GLOBAL].</p></li>
+variables under the section [GLOBALS].</p></li>
 <li><p>A file specified by the environment variable <cite>HIPPYNN_LOCAL_RC_FILE</cite>
 which is treated the same as the user rc file.</p></li>
 <li><p>Environment variables prefixed by <code class="docutils literal notranslate"><span class="pre">HIPPYNN_</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">HIPPYNN_DEFAULT_PLOT_FILETYPE</span></code>.</p></li>
@@ -143,7 +143,7 @@ If possible, this is indicated in the <cite>dynamic</cite> column in the followi
 <td><p>Use custom kernels with numba or cupy. Auto tries to detect the installation of numba or cupy. For more info see <a class="reference internal" href="ckernels.html"><span class="doc">Custom Kernels</span></a>.</p></td>
 <td><p>auto, true, false, pytorch, numba, cupy</p></td>
 <td><p>auto</p></td>
-<td><p>Not directly, use <a class="reference internal" href="../api_documentation/hippynn.custom_kernels.html#hippynn.custom_kernels.set_custom_kernels" title="hippynn.custom_kernels.set_custom_kernels"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_custom_kernels()</span></code></a></p></td>
+<td><p>Not directly, use <code class="xref py py-func docutils literal notranslate"><span class="pre">set_custom_kernels()</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>WARN_LOW_DISTANCES</p></td>
 <td><p>Warn if atom distances are low compared to current radial sensitivity parameters.</p></td>
