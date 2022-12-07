@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hippynn.layers.physics &mdash; hippynn 0.0.1b4 documentation</title>
+  <title>hippynn.layers.physics &mdash; hippynn 0.0.1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
@@ -77,6 +77,7 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">Tensor</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">pairs</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">indexers</span>
@@ -112,7 +113,14 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">summer</span> <span class="o">=</span> <span class="n">indexers</span><span class="o">.</span><span class="n">MolSummer</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Dipole.forward"><a class="viewcode-back" href="../../../api_documentation/hippynn.layers.physics.html#hippynn.layers.physics.Dipole.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">charges</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">mol_index</span><span class="p">,</span> <span class="n">n_molecules</span><span class="p">):</span>
+<div class="viewcode-block" id="Dipole.forward"><a class="viewcode-back" href="../../../api_documentation/hippynn.layers.physics.html#hippynn.layers.physics.Dipole.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">charges</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">positions</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">mol_index</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">n_molecules</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">charges</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># charges contain multiple targets, so set up broadcasting</span>
+            <span class="n">charges</span> <span class="o">=</span> <span class="n">charges</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">positions</span> <span class="o">=</span> <span class="n">positions</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># shape is (n_atoms, 3, n_targets) in multi-target mode</span>
+        <span class="c1"># shape is (n_atoms, 3) in single target mode</span>
         <span class="n">dipole_elements</span> <span class="o">=</span> <span class="n">charges</span> <span class="o">*</span> <span class="n">positions</span>
         <span class="n">dipoles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">summer</span><span class="p">(</span><span class="n">dipole_elements</span><span class="p">,</span> <span class="n">mol_index</span><span class="p">,</span> <span class="n">n_molecules</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">dipoles</span></div></div>
@@ -131,7 +139,7 @@
         <span class="c1"># charge shape: (atoms,1)</span>
         <span class="n">ri_rj</span> <span class="o">=</span> <span class="n">positions</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">positions</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">ri_rj_flat</span> <span class="o">=</span> <span class="n">ri_rj</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>  <span class="c1"># Flatten to component</span>
-        <span class="n">rsq</span> <span class="o">=</span> <span class="p">(</span><span class="n">positions</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># unsqueeze over component index</span>
+        <span class="n">rsq</span> <span class="o">=</span> <span class="p">(</span><span class="n">positions</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># unsqueeze over component index</span>
         <span class="n">delta_ij</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">rsq</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># unsqueeze over atom index</span>
         <span class="n">quad_elements</span> <span class="o">=</span> <span class="n">charges</span> <span class="o">*</span> <span class="p">(</span><span class="n">ri_rj_flat</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">rsq</span> <span class="o">*</span> <span class="n">delta_ij</span><span class="p">))</span>
         <span class="n">quadrupoles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">summer</span><span class="p">(</span><span class="n">quad_elements</span><span class="p">,</span> <span class="n">mol_index</span><span class="p">,</span> <span class="n">n_molecules</span><span class="p">)</span>
@@ -215,6 +223,36 @@
         <span class="n">q</span> <span class="o">=</span> <span class="n">pair_dist</span> <span class="o">/</span> <span class="n">radius</span>
         <span class="n">eta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">radius</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">erfc</span><span class="p">(</span><span class="n">eta</span> <span class="o">*</span> <span class="n">q</span><span class="p">)</span> <span class="o">-</span> <span class="n">q</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">erfc</span><span class="p">(</span><span class="n">eta</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="LocalDampingCosine"><a class="viewcode-back" href="../../../api_documentation/hippynn.layers.physics.html#hippynn.layers.physics.LocalDampingCosine">[docs]</a><span class="k">class</span> <span class="nc">LocalDampingCosine</span><span class="p">(</span><span class="n">AlphaScreening</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Local damping using complement of the hipnn cutoff function. (&#39;glue-on&#39; method)</span>
+<span class="sd">    g =     1 if pair_dist &gt; R_cutoff</span>
+<span class="sd">            1 - [cos(\pi/2 * dist * R_cutoff)]^2  otherwise</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="LocalDampingCosine.__init__"><a class="viewcode-back" href="../../../api_documentation/hippynn.layers.physics.html#hippynn.layers.physics.LocalDampingCosine.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span> 
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        :param alpha: R_cutoff for glue-on function to ensure </span>
+<span class="sd">            smooth crossover from hipnn energy to long-range coulomb energy.  </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> </div>
+
+
+<div class="viewcode-block" id="LocalDampingCosine.forward"><a class="viewcode-back" href="../../../api_documentation/hippynn.layers.physics.html#hippynn.layers.physics.LocalDampingCosine.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pair_dist</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param pair_dist: torch.tensor, dtype=float64: &#39;Neighborlist&#39; distances for coulomb energies.</span>
+<span class="sd">        :param radius: Maximum radius that Screened-Coulomb is evaluated upto. </span>
+<span class="sd">        :return screening: Weights for screening for each pair.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pi</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">3.141592653589793238</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">pair_dist</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">pair_dist</span> <span class="o">/</span> <span class="n">radius</span> 
+        <span class="n">eta</span> <span class="o">=</span>  <span class="n">radius</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span>
+        <span class="n">screening</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="n">pair_dist</span><span class="o">.</span><span class="n">device</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">q</span><span class="o">*</span><span class="n">eta</span><span class="p">)))</span>
+        
+        <span class="c1"># pair_dist greater than cut-off; no local-damping. </span>
+        <span class="n">screening</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">pair_dist</span><span class="o">&lt;</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">),</span> <span class="n">screening</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">screening</span><span class="p">))</span>
+        
+        <span class="k">return</span> <span class="n">screening</span></div></div>
 
 
 <div class="viewcode-block" id="QScreening"><a class="viewcode-back" href="../../../api_documentation/hippynn.layers.physics.html#hippynn.layers.physics.QScreening">[docs]</a><span class="k">class</span> <span class="nc">QScreening</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>

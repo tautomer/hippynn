@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hippynn.interfaces.ase_interface.calculator &mdash; hippynn 0.0.1b4 documentation</title>
+  <title>hippynn.interfaces.ase_interface.calculator &mdash; hippynn 0.0.1 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
@@ -295,7 +295,7 @@
         <span class="p">)</span>
         
         <span class="bp">self</span><span class="o">.</span><span class="n">implemented_properties</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;energy&quot;</span><span class="p">)</span> <span class="c1"># Required for using mixing calculators in ASE</span>
-
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">atoms</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_last_properties</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -313,7 +313,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dist_unit</span> <span class="o">=</span> <span class="n">dist_unit</span> <span class="k">if</span> <span class="n">dist_unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">ase</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">Angstrom</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">get_default_dtype</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;Hippynn calculator&quot;</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;Hippynn calculator&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1">#Hack to work with ASE trajectory printing</span></div>
 
     <span class="n">make</span> <span class="o">=</span> <span class="n">_generate_calculation_method</span>
     <span class="n">get_potential_energy</span> <span class="o">=</span> <span class="n">make</span><span class="p">(</span><span class="s2">&quot;potential_energy&quot;</span><span class="p">)</span>
