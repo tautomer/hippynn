@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>layers package &mdash; hippynn 0.0.1 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=e3456cac" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=8df938ec"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,6 +59,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">layers package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.pairs.html">pairs package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.algebra.html">algebra module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.excited.html">excited module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.hiplayers.html">hiplayers module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.indexers.html">indexers module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.physics.html">physics module</a></li>
@@ -127,6 +130,16 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html">dispatch module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html#hippynn.layers.pairs.dispatch.KDTreeNeighbors"><code class="docutils literal notranslate"><span class="pre">KDTreeNeighbors</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html#hippynn.layers.pairs.dispatch.KDTreeNeighbors.compute_one"><code class="docutils literal notranslate"><span class="pre">KDTreeNeighbors.compute_one()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html#hippynn.layers.pairs.dispatch.KDTreeNeighbors.training"><code class="docutils literal notranslate"><span class="pre">KDTreeNeighbors.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html#hippynn.layers.pairs.dispatch.KDTreePairsMemory"><code class="docutils literal notranslate"><span class="pre">KDTreePairsMemory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html#hippynn.layers.pairs.dispatch.KDTreePairsMemory.forward"><code class="docutils literal notranslate"><span class="pre">KDTreePairsMemory.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html#hippynn.layers.pairs.dispatch.KDTreePairsMemory.training"><code class="docutils literal notranslate"><span class="pre">KDTreePairsMemory.training</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html#hippynn.layers.pairs.dispatch.NPNeighbors"><code class="docutils literal notranslate"><span class="pre">NPNeighbors</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html#hippynn.layers.pairs.dispatch.NPNeighbors.compute_one"><code class="docutils literal notranslate"><span class="pre">NPNeighbors.compute_one()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html#hippynn.layers.pairs.dispatch.NPNeighbors.training"><code class="docutils literal notranslate"><span class="pre">NPNeighbors.training</span></code></a></li>
@@ -137,8 +150,17 @@
 <li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html#hippynn.layers.pairs.dispatch.TorchNeighbors.training"><code class="docutils literal notranslate"><span class="pre">TorchNeighbors.training</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html#hippynn.layers.pairs.dispatch.neighbor_list_kdtree"><code class="docutils literal notranslate"><span class="pre">neighbor_list_kdtree()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html#hippynn.layers.pairs.dispatch.neighbor_list_np"><code class="docutils literal notranslate"><span class="pre">neighbor_list_np()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.pairs.dispatch.html#hippynn.layers.pairs.dispatch.wrap_points_np"><code class="docutils literal notranslate"><span class="pre">wrap_points_np()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.layers.pairs.filters.html">filters module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.pairs.filters.html#hippynn.layers.pairs.filters.FilterDistance"><code class="docutils literal notranslate"><span class="pre">FilterDistance</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.filters.html#hippynn.layers.pairs.filters.FilterDistance.forward"><code class="docutils literal notranslate"><span class="pre">FilterDistance.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.filters.html#hippynn.layers.pairs.filters.FilterDistance.training"><code class="docutils literal notranslate"><span class="pre">FilterDistance.training</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.layers.pairs.indexing.html">indexing module</a><ul>
@@ -190,12 +212,29 @@
 <li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.open.html#hippynn.layers.pairs.open.OpenPairIndexer.training"><code class="docutils literal notranslate"><span class="pre">OpenPairIndexer.training</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.pairs.open.html#hippynn.layers.pairs.open.PairMemory"><code class="docutils literal notranslate"><span class="pre">PairMemory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.open.html#hippynn.layers.pairs.open.PairMemory.__init__"><code class="docutils literal notranslate"><span class="pre">PairMemory.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.open.html#hippynn.layers.pairs.open.PairMemory.forward"><code class="docutils literal notranslate"><span class="pre">PairMemory.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.open.html#hippynn.layers.pairs.open.PairMemory.initialize_buffers"><code class="docutils literal notranslate"><span class="pre">PairMemory.initialize_buffers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.open.html#hippynn.layers.pairs.open.PairMemory.recalculation_needed"><code class="docutils literal notranslate"><span class="pre">PairMemory.recalculation_needed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.open.html#hippynn.layers.pairs.open.PairMemory.reset_reuse_percentage"><code class="docutils literal notranslate"><span class="pre">PairMemory.reset_reuse_percentage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.open.html#hippynn.layers.pairs.open.PairMemory.reuse_percentage"><code class="docutils literal notranslate"><span class="pre">PairMemory.reuse_percentage</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.open.html#hippynn.layers.pairs.open.PairMemory.set_skin"><code class="docutils literal notranslate"><span class="pre">PairMemory.set_skin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.open.html#hippynn.layers.pairs.open.PairMemory.skin"><code class="docutils literal notranslate"><span class="pre">PairMemory.skin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.open.html#hippynn.layers.pairs.open.PairMemory.training"><code class="docutils literal notranslate"><span class="pre">PairMemory.training</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.layers.pairs.periodic.html">periodic module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.pairs.periodic.html#hippynn.layers.pairs.periodic.PeriodicPairIndexer"><code class="docutils literal notranslate"><span class="pre">PeriodicPairIndexer</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.periodic.html#hippynn.layers.pairs.periodic.PeriodicPairIndexer.forward"><code class="docutils literal notranslate"><span class="pre">PeriodicPairIndexer.forward()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.periodic.html#hippynn.layers.pairs.periodic.PeriodicPairIndexer.training"><code class="docutils literal notranslate"><span class="pre">PeriodicPairIndexer.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.pairs.periodic.html#hippynn.layers.pairs.periodic.PeriodicPairIndexerMemory"><code class="docutils literal notranslate"><span class="pre">PeriodicPairIndexerMemory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.periodic.html#hippynn.layers.pairs.periodic.PeriodicPairIndexerMemory.forward"><code class="docutils literal notranslate"><span class="pre">PeriodicPairIndexerMemory.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.layers.pairs.periodic.html#hippynn.layers.pairs.periodic.PeriodicPairIndexerMemory.training"><code class="docutils literal notranslate"><span class="pre">PeriodicPairIndexerMemory.training</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.pairs.periodic.html#hippynn.layers.pairs.periodic.StaticImagePeriodicPairIndexer"><code class="docutils literal notranslate"><span class="pre">StaticImagePeriodicPairIndexer</span></code></a><ul>
@@ -243,6 +282,27 @@
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.algebra.html#hippynn.layers.algebra.ValueMod.extra_repr"><code class="docutils literal notranslate"><span class="pre">ValueMod.extra_repr()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.algebra.html#hippynn.layers.algebra.ValueMod.forward"><code class="docutils literal notranslate"><span class="pre">ValueMod.forward()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.algebra.html#hippynn.layers.algebra.ValueMod.training"><code class="docutils literal notranslate"><span class="pre">ValueMod.training</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hippynn.layers.excited.html">excited module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.layers.excited.html#hippynn.layers.excited.LocalEnergy"><code class="docutils literal notranslate"><span class="pre">LocalEnergy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.excited.html#hippynn.layers.excited.LocalEnergy.__init__"><code class="docutils literal notranslate"><span class="pre">LocalEnergy.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.excited.html#hippynn.layers.excited.LocalEnergy.forward"><code class="docutils literal notranslate"><span class="pre">LocalEnergy.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.excited.html#hippynn.layers.excited.LocalEnergy.training"><code class="docutils literal notranslate"><span class="pre">LocalEnergy.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.layers.excited.html#hippynn.layers.excited.NACR"><code class="docutils literal notranslate"><span class="pre">NACR</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.excited.html#hippynn.layers.excited.NACR.__init__"><code class="docutils literal notranslate"><span class="pre">NACR.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.excited.html#hippynn.layers.excited.NACR.forward"><code class="docutils literal notranslate"><span class="pre">NACR.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.excited.html#hippynn.layers.excited.NACR.training"><code class="docutils literal notranslate"><span class="pre">NACR.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.layers.excited.html#hippynn.layers.excited.NACRMultiState"><code class="docutils literal notranslate"><span class="pre">NACRMultiState</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.excited.html#hippynn.layers.excited.NACRMultiState.__init__"><code class="docutils literal notranslate"><span class="pre">NACRMultiState.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.excited.html#hippynn.layers.excited.NACRMultiState.forward"><code class="docutils literal notranslate"><span class="pre">NACRMultiState.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.excited.html#hippynn.layers.excited.NACRMultiState.training"><code class="docutils literal notranslate"><span class="pre">NACRMultiState.training</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -321,6 +381,12 @@
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.indexers.html#hippynn.layers.indexers.FilterBondsOneway.training"><code class="docutils literal notranslate"><span class="pre">FilterBondsOneway.training</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.layers.indexers.html#hippynn.layers.indexers.FuzzyHistogram"><code class="docutils literal notranslate"><span class="pre">FuzzyHistogram</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.indexers.html#hippynn.layers.indexers.FuzzyHistogram.__init__"><code class="docutils literal notranslate"><span class="pre">FuzzyHistogram.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.indexers.html#hippynn.layers.indexers.FuzzyHistogram.forward"><code class="docutils literal notranslate"><span class="pre">FuzzyHistogram.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.indexers.html#hippynn.layers.indexers.FuzzyHistogram.training"><code class="docutils literal notranslate"><span class="pre">FuzzyHistogram.training</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.layers.indexers.html#hippynn.layers.indexers.MolSummer"><code class="docutils literal notranslate"><span class="pre">MolSummer</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.indexers.html#hippynn.layers.indexers.MolSummer.forward"><code class="docutils literal notranslate"><span class="pre">MolSummer.forward()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.indexers.html#hippynn.layers.indexers.MolSummer.training"><code class="docutils literal notranslate"><span class="pre">MolSummer.training</span></code></a></li>
@@ -349,12 +415,29 @@
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.indexers.html#hippynn.layers.indexers.QuadUnpack.training"><code class="docutils literal notranslate"><span class="pre">QuadUnpack.training</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.layers.indexers.html#hippynn.layers.indexers.SysMaxOfAtoms"><code class="docutils literal notranslate"><span class="pre">SysMaxOfAtoms</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.indexers.html#hippynn.layers.indexers.SysMaxOfAtoms.forward"><code class="docutils literal notranslate"><span class="pre">SysMaxOfAtoms.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.indexers.html#hippynn.layers.indexers.SysMaxOfAtoms.training"><code class="docutils literal notranslate"><span class="pre">SysMaxOfAtoms.training</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="hippynn.layers.physics.html">physics module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.layers.physics.html#hippynn.layers.physics.AlphaScreening"><code class="docutils literal notranslate"><span class="pre">AlphaScreening</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.physics.html#hippynn.layers.physics.AlphaScreening.__init__"><code class="docutils literal notranslate"><span class="pre">AlphaScreening.__init__()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.physics.html#hippynn.layers.physics.AlphaScreening.training"><code class="docutils literal notranslate"><span class="pre">AlphaScreening.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.layers.physics.html#hippynn.layers.physics.CombineEnergy"><code class="docutils literal notranslate"><span class="pre">CombineEnergy</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.physics.html#hippynn.layers.physics.CombineEnergy.__init__"><code class="docutils literal notranslate"><span class="pre">CombineEnergy.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.physics.html#hippynn.layers.physics.CombineEnergy.forward"><code class="docutils literal notranslate"><span class="pre">CombineEnergy.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.physics.html#hippynn.layers.physics.CombineEnergy.training"><code class="docutils literal notranslate"><span class="pre">CombineEnergy.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.layers.physics.html#hippynn.layers.physics.CombineScreenings"><code class="docutils literal notranslate"><span class="pre">CombineScreenings</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.physics.html#hippynn.layers.physics.CombineScreenings.__init__"><code class="docutils literal notranslate"><span class="pre">CombineScreenings.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.physics.html#hippynn.layers.physics.CombineScreenings.forward"><code class="docutils literal notranslate"><span class="pre">CombineScreenings.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.physics.html#hippynn.layers.physics.CombineScreenings.training"><code class="docutils literal notranslate"><span class="pre">CombineScreenings.training</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.layers.physics.html#hippynn.layers.physics.CoulombEnergy"><code class="docutils literal notranslate"><span class="pre">CoulombEnergy</span></code></a><ul>
@@ -462,12 +545,6 @@
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.targets.html#hippynn.layers.targets.LocalChargeEnergy.__init__"><code class="docutils literal notranslate"><span class="pre">LocalChargeEnergy.__init__()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.targets.html#hippynn.layers.targets.LocalChargeEnergy.forward"><code class="docutils literal notranslate"><span class="pre">LocalChargeEnergy.forward()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.targets.html#hippynn.layers.targets.LocalChargeEnergy.training"><code class="docutils literal notranslate"><span class="pre">LocalChargeEnergy.training</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="hippynn.layers.targets.html#hippynn.layers.targets.LocalEnergy"><code class="docutils literal notranslate"><span class="pre">LocalEnergy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.targets.html#hippynn.layers.targets.LocalEnergy.__init__"><code class="docutils literal notranslate"><span class="pre">LocalEnergy.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.targets.html#hippynn.layers.targets.LocalEnergy.forward"><code class="docutils literal notranslate"><span class="pre">LocalEnergy.forward()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.targets.html#hippynn.layers.targets.LocalEnergy.training"><code class="docutils literal notranslate"><span class="pre">LocalEnergy.training</span></code></a></li>
 </ul>
 </li>
 </ul>

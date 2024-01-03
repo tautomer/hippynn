@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>experiment package &mdash; hippynn 0.0.1 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=e3456cac" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=8df938ec"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -78,6 +80,7 @@
 <li class="toctree-l3"><a class="reference internal" href="hippynn.experiment.metric_tracker.html">metric_tracker module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.experiment.routines.html">routines module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.experiment.serialization.html">serialization module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.experiment.step_functions.html">step_functions module</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.graphs.html">graphs package</a></li>
@@ -253,7 +256,7 @@ evaluator.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="hippynn.experiment.setup_and_train">
-<span class="sig-name descname"><span class="pre">setup_and_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_modules</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hippynn.experiment.assembly.html#hippynn.experiment.assembly.TrainingModules" title="hippynn.experiment.assembly.TrainingModules"><span class="pre">TrainingModules</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setup_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hippynn.experiment.routines.html#hippynn.experiment.routines.SetupParams" title="hippynn.experiment.routines.SetupParams"><span class="pre">SetupParams</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/experiment/routines.html#setup_and_train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.experiment.setup_and_train" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setup_and_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_modules</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hippynn.experiment.assembly.html#hippynn.experiment.assembly.TrainingModules" title="hippynn.experiment.assembly.TrainingModules"><span class="pre">TrainingModules</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">setup_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="hippynn.experiment.routines.html#hippynn.experiment.routines.SetupParams" title="hippynn.experiment.routines.SetupParams"><span class="pre">SetupParams</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_all_better</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_best</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/experiment/routines.html#setup_and_train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.experiment.setup_and_train" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Param<span class="colon">:</span></dt>
 <dd class="field-odd"><p>training_modules: see <a class="reference internal" href="#hippynn.experiment.setup_training" title="hippynn.experiment.setup_training"><code class="xref py py-func docutils literal notranslate"><span class="pre">setup_training()</span></code></a></p>
@@ -264,8 +267,17 @@ evaluator.</p>
 <dt class="field-odd">Param<span class="colon">:</span></dt>
 <dd class="field-odd"><p>setup_params: see <a class="reference internal" href="#hippynn.experiment.setup_training" title="hippynn.experiment.setup_training"><code class="xref py py-func docutils literal notranslate"><span class="pre">setup_training()</span></code></a></p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>See <a class="reference internal" href="#hippynn.experiment.train_model" title="hippynn.experiment.train_model"><code class="xref py py-func docutils literal notranslate"><span class="pre">train_model()</span></code></a></p>
+<dt class="field-even">Param<span class="colon">:</span></dt>
+<dd class="field-even"><p>store_all_better: Save the state dict for each model doing better than a previous one</p>
+</dd>
+<dt class="field-odd">Param<span class="colon">:</span></dt>
+<dd class="field-odd"><p>store_best: Save a checkpoint for the best model</p>
+</dd>
+<dt class="field-even">Param<span class="colon">:</span></dt>
+<dd class="field-even"><p>store_every: Save a checkpoint for every certain epochs</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>See <a class="reference internal" href="#hippynn.experiment.train_model" title="hippynn.experiment.train_model"><code class="xref py py-func docutils literal notranslate"><span class="pre">train_model()</span></code></a></p>
 </dd>
 </dl>
 <p>Shortcut for setup_training followed by train_model.</p>
@@ -341,7 +353,7 @@ a blank one will be constructed.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="hippynn.experiment.train_model">
-<span class="sig-name descname"><span class="pre">train_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_modules</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_tracker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_callbacks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_all_better</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_best</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_structure_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/experiment/routines.html#train_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.experiment.train_model" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">train_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training_modules</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_tracker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_callbacks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_all_better</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_best</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_every</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_structure_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/experiment/routines.html#train_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.experiment.train_model" title="Permalink to this definition"></a></dt>
 <dd><p>Performs training loop, allows keyboard interrupt. When done,
 reinstate the best model, make plots and metrics over time, and test the model.</p>
 <dl class="field-list simple">
@@ -355,6 +367,7 @@ reinstate the best model, make plots and metrics over time, and test the model.<
 <li><p><strong>batch_callbacks</strong> – callbacks to perform after every batch</p></li>
 <li><p><strong>store_best</strong> – Save a checkpoint for the best model</p></li>
 <li><p><strong>store_all_better</strong> – Save the state dict for each model doing better than a previous one</p></li>
+<li><p><strong>store_every</strong> – Save a checkpoint for every certain epochs</p></li>
 <li><p><strong>store_structure_file</strong> – Save the structure file for this experiment</p></li>
 <li><p><strong>store_metrics</strong> – Save the metric tracker for this experiment.</p></li>
 <li><p><strong>quiet</strong> – If True, disable printing during training (still prints testing results).</p></li>
@@ -402,7 +415,7 @@ have to manage that manually (possibly with a callback itself).</p>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.assembly.html#hippynn.experiment.assembly.assemble_for_training"><code class="docutils literal notranslate"><span class="pre">assemble_for_training()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.assembly.html#hippynn.experiment.assembly.build_loss_modules"><code class="docutils literal notranslate"><span class="pre">build_loss_modules()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.assembly.html#hippynn.experiment.assembly.determine_out_in_targ"><code class="docutils literal notranslate"><span class="pre">determine_out_in_targ()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.assembly.html#hippynn.experiment.assembly.gemerate_database_info"><code class="docutils literal notranslate"><span class="pre">gemerate_database_info()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.assembly.html#hippynn.experiment.assembly.generate_database_info"><code class="docutils literal notranslate"><span class="pre">generate_database_info()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.assembly.html#hippynn.experiment.assembly.precompute_pairs"><code class="docutils literal notranslate"><span class="pre">precompute_pairs()</span></code></a></li>
 </ul>
 </li>
@@ -491,6 +504,29 @@ have to manage that manually (possibly with a callback itself).</p>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.serialization.html#hippynn.experiment.serialization.load_model_from_cwd"><code class="docutils literal notranslate"><span class="pre">load_model_from_cwd()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.serialization.html#hippynn.experiment.serialization.load_saved_tensors"><code class="docutils literal notranslate"><span class="pre">load_saved_tensors()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.serialization.html#hippynn.experiment.serialization.restore_checkpoint"><code class="docutils literal notranslate"><span class="pre">restore_checkpoint()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hippynn.experiment.step_functions.html">step_functions module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.step_functions.html#hippynn.experiment.step_functions.ClosureStep"><code class="docutils literal notranslate"><span class="pre">ClosureStep</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.experiment.step_functions.html#hippynn.experiment.step_functions.ClosureStep.step"><code class="docutils literal notranslate"><span class="pre">ClosureStep.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.step_functions.html#hippynn.experiment.step_functions.StandardStep"><code class="docutils literal notranslate"><span class="pre">StandardStep</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.experiment.step_functions.html#hippynn.experiment.step_functions.StandardStep.step"><code class="docutils literal notranslate"><span class="pre">StandardStep.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.step_functions.html#hippynn.experiment.step_functions.StepFn"><code class="docutils literal notranslate"><span class="pre">StepFn</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.experiment.step_functions.html#hippynn.experiment.step_functions.StepFn.step"><code class="docutils literal notranslate"><span class="pre">StepFn.step</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.step_functions.html#hippynn.experiment.step_functions.TwoStep"><code class="docutils literal notranslate"><span class="pre">TwoStep</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.experiment.step_functions.html#hippynn.experiment.step_functions.TwoStep.step"><code class="docutils literal notranslate"><span class="pre">TwoStep.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.step_functions.html#hippynn.experiment.step_functions.closure_step_fn"><code class="docutils literal notranslate"><span class="pre">closure_step_fn()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.step_functions.html#hippynn.experiment.step_functions.get_step_function"><code class="docutils literal notranslate"><span class="pre">get_step_function()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.step_functions.html#hippynn.experiment.step_functions.standard_step_fn"><code class="docutils literal notranslate"><span class="pre">standard_step_fn()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.experiment.step_functions.html#hippynn.experiment.step_functions.twostep_step_fn"><code class="docutils literal notranslate"><span class="pre">twostep_step_fn()</span></code></a></li>
 </ul>
 </li>
 </ul>

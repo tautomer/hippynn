@@ -1,27 +1,29 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>indexers module &mdash; hippynn 0.0.1 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=e3456cac" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=8df938ec"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="inputs module" href="hippynn.graphs.nodes.inputs.html" />
-    <link rel="prev" title="node_functions module" href="hippynn.graphs.nodes.base.node_functions.html" /> 
+    <link rel="prev" title="excited module" href="hippynn.graphs.nodes.excited.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -67,6 +69,7 @@
 <li class="toctree-l3"><a class="reference internal" href="hippynn.graphs.indextypes.html">indextypes package</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="hippynn.graphs.nodes.html">nodes package</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="hippynn.graphs.nodes.base.html">base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hippynn.graphs.nodes.excited.html">excited module</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">indexers module</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.AtomDeIndexer"><code class="docutils literal notranslate"><span class="pre">AtomDeIndexer</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.AtomDeIndexer.__init__"><code class="docutils literal notranslate"><span class="pre">AtomDeIndexer.__init__()</span></code></a></li>
@@ -83,6 +86,10 @@
 <li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.FilterBondsOneway.__init__"><code class="docutils literal notranslate"><span class="pre">FilterBondsOneway.__init__()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.FuzzyHistogrammer"><code class="docutils literal notranslate"><span class="pre">FuzzyHistogrammer</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.FuzzyHistogrammer.__init__"><code class="docutils literal notranslate"><span class="pre">FuzzyHistogrammer.__init__()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.OneHotEncoder"><code class="docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.OneHotEncoder.__init__"><code class="docutils literal notranslate"><span class="pre">OneHotEncoder.__init__()</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.OneHotEncoder.auto_module"><code class="docutils literal notranslate"><span class="pre">OneHotEncoder.auto_module()</span></code></a></li>
@@ -95,6 +102,12 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.QuadUnpackNode"><code class="docutils literal notranslate"><span class="pre">QuadUnpackNode</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.QuadUnpackNode.__init__"><code class="docutils literal notranslate"><span class="pre">QuadUnpackNode.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.SysMaxOfAtomsNode"><code class="docutils literal notranslate"><span class="pre">SysMaxOfAtomsNode</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.SysMaxOfAtomsNode.__init__"><code class="docutils literal notranslate"><span class="pre">SysMaxOfAtomsNode.__init__()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.SysMaxOfAtomsNode.expansion0"><code class="docutils literal notranslate"><span class="pre">SysMaxOfAtomsNode.expansion0()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.SysMaxOfAtomsNode.expansion1"><code class="docutils literal notranslate"><span class="pre">SysMaxOfAtomsNode.expansion1()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.indexers.acquire_encoding_padding"><code class="docutils literal notranslate"><span class="pre">acquire_encoding_padding()</span></code></a></li>
@@ -149,7 +162,7 @@
             <a href="../_sources/api_documentation/hippynn.graphs.nodes.indexers.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
-        <a href="hippynn.graphs.nodes.base.node_functions.html" class="btn btn-neutral float-left" title="node_functions module" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hippynn.graphs.nodes.excited.html" class="btn btn-neutral float-left" title="excited module" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="hippynn.graphs.nodes.inputs.html" class="btn btn-neutral float-right" title="inputs module" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
   </div>
   <hr/>
@@ -234,6 +247,24 @@
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="hippynn.graphs.nodes.indexers.FuzzyHistogrammer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FuzzyHistogrammer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/graphs/nodes/indexers.html#FuzzyHistogrammer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.graphs.nodes.indexers.FuzzyHistogrammer" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="hippynn.graphs.nodes.base.definition_helpers.html#hippynn.graphs.nodes.base.definition_helpers.AutoKw" title="hippynn.graphs.nodes.base.definition_helpers.AutoKw"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoKw</span></code></a>, <a class="reference internal" href="hippynn.graphs.nodes.base.base.html#hippynn.graphs.nodes.base.base.SingleNode" title="hippynn.graphs.nodes.base.base.SingleNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleNode</span></code></a></p>
+<p>Node for transforming a scalar feature into a vectorized feature via 
+the fuzzy/soft histogram method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>length</strong> – length of vectorized feature</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="hippynn.graphs.nodes.indexers.FuzzyHistogrammer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/graphs/nodes/indexers.html#FuzzyHistogrammer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.graphs.nodes.indexers.FuzzyHistogrammer.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="hippynn.graphs.nodes.indexers.OneHotEncoder">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OneHotEncoder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species_set</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/graphs/nodes/indexers.html#OneHotEncoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.graphs.nodes.indexers.OneHotEncoder" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="hippynn.graphs.nodes.base.definition_helpers.html#hippynn.graphs.nodes.base.definition_helpers.AutoKw" title="hippynn.graphs.nodes.base.definition_helpers.AutoKw"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoKw</span></code></a>, <a class="reference internal" href="hippynn.graphs.nodes.tags.html#hippynn.graphs.nodes.tags.Encoder" title="hippynn.graphs.nodes.tags.Encoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Encoder</span></code></a>, <a class="reference internal" href="hippynn.graphs.nodes.base.multi.html#hippynn.graphs.nodes.base.multi.MultiNode" title="hippynn.graphs.nodes.base.multi.MultiNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiNode</span></code></a></p>
@@ -288,6 +319,29 @@ MolAtom to Atom index state.</p>
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="hippynn.graphs.nodes.indexers.SysMaxOfAtomsNode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SysMaxOfAtomsNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/graphs/nodes/indexers.html#SysMaxOfAtomsNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.graphs.nodes.indexers.SysMaxOfAtomsNode" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="hippynn.graphs.nodes.base.definition_helpers.html#hippynn.graphs.nodes.base.definition_helpers.ExpandParents" title="hippynn.graphs.nodes.base.definition_helpers.ExpandParents"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExpandParents</span></code></a>, <a class="reference internal" href="hippynn.graphs.nodes.base.definition_helpers.html#hippynn.graphs.nodes.base.definition_helpers.AutoNoKw" title="hippynn.graphs.nodes.base.definition_helpers.AutoNoKw"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoNoKw</span></code></a>, <a class="reference internal" href="hippynn.graphs.nodes.base.base.html#hippynn.graphs.nodes.base.base.SingleNode" title="hippynn.graphs.nodes.base.base.SingleNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleNode</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hippynn.graphs.nodes.indexers.SysMaxOfAtomsNode.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/graphs/nodes/indexers.html#SysMaxOfAtomsNode.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.graphs.nodes.indexers.SysMaxOfAtomsNode.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hippynn.graphs.nodes.indexers.SysMaxOfAtomsNode.expansion0">
+<span class="sig-name descname"><span class="pre">expansion0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">purpose</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/graphs/nodes/indexers.html#SysMaxOfAtomsNode.expansion0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.graphs.nodes.indexers.SysMaxOfAtomsNode.expansion0" title="Permalink to this definition"></a></dt>
+<dd><p>Used for creation from parents with signature (_BaseNode)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hippynn.graphs.nodes.indexers.SysMaxOfAtomsNode.expansion1">
+<span class="sig-name descname"><span class="pre">expansion1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pidxer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">purpose</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/graphs/nodes/indexers.html#SysMaxOfAtomsNode.expansion1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.graphs.nodes.indexers.SysMaxOfAtomsNode.expansion1" title="Permalink to this definition"></a></dt>
+<dd><p>Used for creation from parents with signature (_BaseNode, AtomIndexer)</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="hippynn.graphs.nodes.indexers.acquire_encoding_padding">
 <span class="sig-name descname"><span class="pre">acquire_encoding_padding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species_set</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">purpose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/graphs/nodes/indexers.html#acquire_encoding_padding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.graphs.nodes.indexers.acquire_encoding_padding" title="Permalink to this definition"></a></dt>
@@ -313,7 +367,7 @@ MolAtom to Atom index state.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="hippynn.graphs.nodes.base.node_functions.html" class="btn btn-neutral float-left" title="node_functions module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hippynn.graphs.nodes.excited.html" class="btn btn-neutral float-left" title="excited module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="hippynn.graphs.nodes.inputs.html" class="btn btn-neutral float-right" title="inputs module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

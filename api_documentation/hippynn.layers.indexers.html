@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>indexers module &mdash; hippynn 0.0.1 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=e3456cac" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=8df938ec"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -57,6 +59,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="hippynn.layers.html">layers package</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.pairs.html">pairs package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.algebra.html">algebra module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.layers.excited.html">excited module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.hiplayers.html">hiplayers module</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">indexers module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#hippynn.layers.indexers.AtomDeIndexer"><code class="docutils literal notranslate"><span class="pre">AtomDeIndexer</span></code></a><ul>
@@ -78,6 +81,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#hippynn.layers.indexers.FilterBondsOneway"><code class="docutils literal notranslate"><span class="pre">FilterBondsOneway</span></code></a><ul>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.layers.indexers.FilterBondsOneway.forward"><code class="docutils literal notranslate"><span class="pre">FilterBondsOneway.forward()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.layers.indexers.FilterBondsOneway.training"><code class="docutils literal notranslate"><span class="pre">FilterBondsOneway.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#hippynn.layers.indexers.FuzzyHistogram"><code class="docutils literal notranslate"><span class="pre">FuzzyHistogram</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hippynn.layers.indexers.FuzzyHistogram.__init__"><code class="docutils literal notranslate"><span class="pre">FuzzyHistogram.__init__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hippynn.layers.indexers.FuzzyHistogram.forward"><code class="docutils literal notranslate"><span class="pre">FuzzyHistogram.forward()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hippynn.layers.indexers.FuzzyHistogram.training"><code class="docutils literal notranslate"><span class="pre">FuzzyHistogram.training</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="#hippynn.layers.indexers.MolSummer"><code class="docutils literal notranslate"><span class="pre">MolSummer</span></code></a><ul>
@@ -106,6 +115,11 @@
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.layers.indexers.QuadUnpack.__init__"><code class="docutils literal notranslate"><span class="pre">QuadUnpack.__init__()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.layers.indexers.QuadUnpack.forward"><code class="docutils literal notranslate"><span class="pre">QuadUnpack.forward()</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.layers.indexers.QuadUnpack.training"><code class="docutils literal notranslate"><span class="pre">QuadUnpack.training</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#hippynn.layers.indexers.SysMaxOfAtoms"><code class="docutils literal notranslate"><span class="pre">SysMaxOfAtoms</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#hippynn.layers.indexers.SysMaxOfAtoms.forward"><code class="docutils literal notranslate"><span class="pre">SysMaxOfAtoms.forward()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hippynn.layers.indexers.SysMaxOfAtoms.training"><code class="docutils literal notranslate"><span class="pre">SysMaxOfAtoms.training</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -260,6 +274,45 @@ registered hooks while the latter silently ignores them.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="hippynn.layers.indexers.FilterBondsOneway.training">
 <span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#hippynn.layers.indexers.FilterBondsOneway.training" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hippynn.layers.indexers.FuzzyHistogram">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FuzzyHistogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/layers/indexers.html#FuzzyHistogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.layers.indexers.FuzzyHistogram" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Transforms a scalar feature into a vectorized feature via 
+the fuzzy/soft histogram method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>length</strong> – length of vectorized feature</p>
+</dd>
+</dl>
+<p>:returns FuzzyHistogram</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hippynn.layers.indexers.FuzzyHistogram.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/layers/indexers.html#FuzzyHistogram.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.layers.indexers.FuzzyHistogram.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="hippynn.layers.indexers.FuzzyHistogram.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/layers/indexers.html#FuzzyHistogram.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.layers.indexers.FuzzyHistogram.forward" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hippynn.layers.indexers.FuzzyHistogram.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#hippynn.layers.indexers.FuzzyHistogram.training" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -436,6 +489,32 @@ registered hooks while the latter silently ignores them.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="hippynn.layers.indexers.QuadUnpack.training">
 <span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#hippynn.layers.indexers.QuadUnpack.training" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hippynn.layers.indexers.SysMaxOfAtoms">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SysMaxOfAtoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/layers/indexers.html#SysMaxOfAtoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.layers.indexers.SysMaxOfAtoms" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Take maximum over atom dimension.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="hippynn.layers.indexers.SysMaxOfAtoms.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mol_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_molecules</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/layers/indexers.html#SysMaxOfAtoms.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.layers.indexers.SysMaxOfAtoms.forward" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hippynn.layers.indexers.SysMaxOfAtoms.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#hippynn.layers.indexers.SysMaxOfAtoms.training" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
