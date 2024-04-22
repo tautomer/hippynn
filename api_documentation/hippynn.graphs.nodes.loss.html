@@ -17,7 +17,7 @@
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="../_static/documentation_options.js?v=c9d3d048"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -64,6 +64,7 @@
 <li class="toctree-l3"><a class="reference internal" href="hippynn.graphs.html#hippynn.graphs.find_unique_relative"><code class="docutils literal notranslate"><span class="pre">find_unique_relative()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.graphs.html#hippynn.graphs.get_connected_nodes"><code class="docutils literal notranslate"><span class="pre">get_connected_nodes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.graphs.html#hippynn.graphs.get_subgraph"><code class="docutils literal notranslate"><span class="pre">get_subgraph()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.graphs.html#hippynn.graphs.make_ensemble"><code class="docutils literal notranslate"><span class="pre">make_ensemble()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.graphs.html#hippynn.graphs.replace_node"><code class="docutils literal notranslate"><span class="pre">replace_node()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.graphs.indextransformers.html">indextransformers package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.graphs.indextypes.html">indextypes package</a></li>
@@ -100,7 +101,6 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.loss.RsqMod"><code class="docutils literal notranslate"><span class="pre">RsqMod</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.loss.RsqMod.forward"><code class="docutils literal notranslate"><span class="pre">RsqMod.forward()</span></code></a></li>
-<li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.loss.RsqMod.training"><code class="docutils literal notranslate"><span class="pre">RsqMod.training</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.loss.Std"><code class="docutils literal notranslate"><span class="pre">Std</span></code></a><ul>
@@ -109,6 +109,14 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.loss.Var"><code class="docutils literal notranslate"><span class="pre">Var</span></code></a><ul>
 <li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.loss.Var.torch_module"><code class="docutils literal notranslate"><span class="pre">Var.torch_module</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.loss.WeightedMAELoss"><code class="docutils literal notranslate"><span class="pre">WeightedMAELoss</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.loss.WeightedMAELoss.torch_module"><code class="docutils literal notranslate"><span class="pre">WeightedMAELoss.torch_module</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.loss.WeightedMSELoss"><code class="docutils literal notranslate"><span class="pre">WeightedMSELoss</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.loss.WeightedMSELoss.torch_module"><code class="docutils literal notranslate"><span class="pre">WeightedMSELoss.torch_module</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.loss.absolute_errors"><code class="docutils literal notranslate"><span class="pre">absolute_errors()</span></code></a></li>
@@ -126,6 +134,7 @@
 <li class="toctree-l4"><a class="reference internal" href="hippynn.graphs.nodes.targets.html">targets module</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.graphs.ensemble.html">ensemble module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.graphs.gops.html">gops module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.graphs.graph.html">graph module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.graphs.predictor.html">predictor module</a></li>
@@ -276,11 +285,6 @@ registered hooks while the latter silently ignores them.</p>
 </div>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="hippynn.graphs.nodes.loss.RsqMod.training">
-<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#hippynn.graphs.nodes.loss.RsqMod.training" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -301,6 +305,28 @@ registered hooks while the latter silently ignores them.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="hippynn.graphs.nodes.loss.Var.torch_module">
 <span class="sig-name descname"><span class="pre">torch_module</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">LambdaModule(var)</span></em><a class="headerlink" href="#hippynn.graphs.nodes.loss.Var.torch_module" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hippynn.graphs.nodes.loss.WeightedMAELoss">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WeightedMAELoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicted</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/graphs/nodes/loss.html#WeightedMAELoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.graphs.nodes.loss.WeightedMAELoss" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_WeightedCompareLoss</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hippynn.graphs.nodes.loss.WeightedMAELoss.torch_module">
+<span class="sig-name descname"><span class="pre">torch_module</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">WeightedMAELoss()</span></em><a class="headerlink" href="#hippynn.graphs.nodes.loss.WeightedMAELoss.torch_module" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hippynn.graphs.nodes.loss.WeightedMSELoss">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WeightedMSELoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicted</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/graphs/nodes/loss.html#WeightedMSELoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.graphs.nodes.loss.WeightedMSELoss" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_WeightedCompareLoss</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hippynn.graphs.nodes.loss.WeightedMSELoss.torch_module">
+<span class="sig-name descname"><span class="pre">torch_module</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">WeightedMSELoss()</span></em><a class="headerlink" href="#hippynn.graphs.nodes.loss.WeightedMSELoss.torch_module" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
