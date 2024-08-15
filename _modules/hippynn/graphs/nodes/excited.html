@@ -76,15 +76,17 @@
            <div itemprop="articleBody">
              
   <h1>Source code for hippynn.graphs.nodes.excited</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
 <span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="kn">from</span> <span class="nn">...layers</span> <span class="kn">import</span> <span class="n">excited</span> <span class="k">as</span> <span class="n">excited_layers</span>
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">IdxType</span><span class="p">,</span> <span class="n">find_unique_relative</span>
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">AutoKw</span><span class="p">,</span> <span class="n">SingleNode</span><span class="p">,</span> <span class="n">ExpandParents</span><span class="p">,</span> <span class="n">MultiNode</span>
-<span class="kn">from</span> <span class="nn">.loss</span> <span class="kn">import</span> <span class="n">_BaseCompareLoss</span>
-<span class="kn">from</span> <span class="nn">.tags</span> <span class="kn">import</span> <span class="n">Energies</span><span class="p">,</span> <span class="n">HAtomRegressor</span><span class="p">,</span> <span class="n">Network</span><span class="p">,</span> <span class="n">AtomIndexer</span>
 <span class="kn">from</span> <span class="nn">...layers</span> <span class="kn">import</span> <span class="n">physics</span> <span class="k">as</span> <span class="n">physics_layers</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">IdxType</span><span class="p">,</span> <span class="n">find_unique_relative</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">AutoKw</span><span class="p">,</span> <span class="n">ExpandParents</span><span class="p">,</span> <span class="n">MultiNode</span><span class="p">,</span> <span class="n">SingleNode</span>
+<span class="kn">from</span> <span class="nn">.loss</span> <span class="kn">import</span> <span class="n">_BaseCompareLoss</span>
+<span class="kn">from</span> <span class="nn">.tags</span> <span class="kn">import</span> <span class="n">AtomIndexer</span><span class="p">,</span> <span class="n">Energies</span><span class="p">,</span> <span class="n">HAtomRegressor</span><span class="p">,</span> <span class="n">Network</span>
 
 
 <div class="viewcode-block" id="NACRNode">
@@ -100,7 +102,9 @@
 
 <div class="viewcode-block" id="NACRNode.__init__">
 <a class="viewcode-back" href="../../../../api_documentation/hippynn.graphs.nodes.excited.html#hippynn.graphs.nodes.excited.NACRNode.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parents</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">module_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parents</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">module_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Automatically build the node for calculating NACR * ΔE between two states i</span>
 <span class="sd">        and j.</span>
 
@@ -188,10 +192,28 @@
 <span class="sd">    Predict a localized energy, with contributions from implicitly computed atoms.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">_input_names</span> <span class="o">=</span> <span class="s2">&quot;hier_features&quot;</span><span class="p">,</span> <span class="s2">&quot;mol_index&quot;</span><span class="p">,</span> <span class="s2">&quot;atom index&quot;</span><span class="p">,</span> <span class="s2">&quot;n_molecules&quot;</span><span class="p">,</span> <span class="s2">&quot;n_atoms_max&quot;</span>
-    <span class="n">_output_names</span> <span class="o">=</span> <span class="s2">&quot;mol_energy&quot;</span><span class="p">,</span> <span class="s2">&quot;atom_energy&quot;</span><span class="p">,</span> <span class="s2">&quot;atom_preenergy&quot;</span><span class="p">,</span> <span class="s2">&quot;atom_probabilities&quot;</span><span class="p">,</span> <span class="s2">&quot;atom_propensities&quot;</span>
+    <span class="n">_input_names</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;hier_features&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mol_index&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;atom index&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;n_molecules&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;n_atoms_max&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">_output_names</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;mol_energy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;atom_energy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;atom_preenergy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;atom_probabilities&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;atom_propensities&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">_main_output</span> <span class="o">=</span> <span class="s2">&quot;mol_energy&quot;</span>
-    <span class="n">_output_index_states</span> <span class="o">=</span> <span class="n">IdxType</span><span class="o">.</span><span class="n">Molecules</span><span class="p">,</span> <span class="n">IdxType</span><span class="o">.</span><span class="n">Atoms</span><span class="p">,</span> <span class="n">IdxType</span><span class="o">.</span><span class="n">Atoms</span><span class="p">,</span> <span class="n">IdxType</span><span class="o">.</span><span class="n">Atoms</span><span class="p">,</span> <span class="n">IdxType</span><span class="o">.</span><span class="n">Atoms</span>
+    <span class="n">_output_index_states</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">IdxType</span><span class="o">.</span><span class="n">Molecules</span><span class="p">,</span>
+        <span class="n">IdxType</span><span class="o">.</span><span class="n">Atoms</span><span class="p">,</span>
+        <span class="n">IdxType</span><span class="o">.</span><span class="n">Atoms</span><span class="p">,</span>
+        <span class="n">IdxType</span><span class="o">.</span><span class="n">Atoms</span><span class="p">,</span>
+        <span class="n">IdxType</span><span class="o">.</span><span class="n">Atoms</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">_auto_module_class</span> <span class="o">=</span> <span class="n">excited_layers</span><span class="o">.</span><span class="n">LocalEnergy</span>
 
 <div class="viewcode-block" id="LocalEnergyNode.expansion0">
@@ -206,14 +228,22 @@
 <a class="viewcode-back" href="../../../../api_documentation/hippynn.graphs.nodes.excited.html#hippynn.graphs.nodes.excited.LocalEnergyNode.expansion1">[docs]</a>
     <span class="nd">@_parent_expander</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">Network</span><span class="p">,</span> <span class="n">AtomIndexer</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">expansion1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">pdindexer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">net</span><span class="p">,</span> <span class="n">pdindexer</span><span class="o">.</span><span class="n">mol_index</span><span class="p">,</span> <span class="n">pdindexer</span><span class="o">.</span><span class="n">atom_index</span><span class="p">,</span> <span class="n">pdindexer</span><span class="o">.</span><span class="n">n_molecules</span><span class="p">,</span> <span class="n">pdindexer</span><span class="o">.</span><span class="n">n_atoms_max</span></div>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">net</span><span class="p">,</span>
+            <span class="n">pdindexer</span><span class="o">.</span><span class="n">mol_index</span><span class="p">,</span>
+            <span class="n">pdindexer</span><span class="o">.</span><span class="n">atom_index</span><span class="p">,</span>
+            <span class="n">pdindexer</span><span class="o">.</span><span class="n">n_molecules</span><span class="p">,</span>
+            <span class="n">pdindexer</span><span class="o">.</span><span class="n">n_atoms_max</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
     <span class="n">_parent_expander</span><span class="o">.</span><span class="n">assertlen</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LocalEnergyNode.__init__">
 <a class="viewcode-back" href="../../../../api_documentation/hippynn.graphs.nodes.excited.html#hippynn.graphs.nodes.excited.LocalEnergyNode.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">first_is_interacting</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">first_is_interacting</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
         <span class="n">parents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expand_parents</span><span class="p">(</span><span class="n">parents</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">module_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;first_is_interacting&quot;</span><span class="p">:</span> <span class="n">first_is_interacting</span><span class="p">}</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
@@ -240,11 +270,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">errors</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">true</span> <span class="o">-</span> <span class="n">predict</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">true</span> <span class="o">+</span> <span class="n">predict</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">((</span><span class="n">true</span> <span class="o">-</span> <span class="n">predict</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">true</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-3</span><span class="p">),</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">((</span><span class="n">true</span> <span class="o">+</span> <span class="n">predict</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">true</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-3</span><span class="p">),</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
     <span class="p">)</span>
-    <span class="c1"># errors = absolute_errors(predict, true)</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">/</span> <span class="n">predict</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">/</span> <span class="n">predict</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
 
 
 <span class="k">def</span> <span class="nf">_mse_with_phases</span><span class="p">(</span><span class="n">predict</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">true</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
@@ -259,11 +288,71 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">errors</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">true</span> <span class="o">-</span> <span class="n">predict</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">true</span> <span class="o">+</span> <span class="n">predict</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">((</span><span class="n">true</span> <span class="o">-</span> <span class="n">predict</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">true</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">((</span><span class="n">true</span> <span class="o">+</span> <span class="n">predict</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">true</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
     <span class="p">)</span>
-    <span class="c1"># errors = absolute_errors(predict, true) ** 2</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">errors</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">predict</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">errors</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">predict</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">_huber_loss_with_phases</span><span class="p">(</span>
+    <span class="n">predict</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">true</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Huber loss with phases</span>
+
+<span class="sd">    :param predict: predicted values</span>
+<span class="sd">    :type predict: torch.Tensor</span>
+<span class="sd">    :param true: true values</span>
+<span class="sd">    :type true: torch.Tensor</span>
+<span class="sd">    :return: MSE with phases</span>
+<span class="sd">    :rtype: torch.Tensor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># scaled_delta = torch.linalg.norm(true, ord=1, dim=-1) * delta</span>
+    <span class="n">minus</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">true</span> <span class="o">-</span> <span class="n">predict</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plus</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">true</span> <span class="o">+</span> <span class="n">predict</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">minus</span><span class="p">,</span> <span class="n">plus</span><span class="p">)</span>
+
+    <span class="n">quadratic</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+    <span class="c1"># quadratic = torch.minimum(diff, scaled_delta)</span>
+    <span class="n">linear</span> <span class="o">=</span> <span class="n">diff</span> <span class="o">-</span> <span class="n">quadratic</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">quadratic</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">delta</span> <span class="o">*</span> <span class="n">linear</span>
+
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="o">/</span> <span class="n">predict</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">_huber_loss_with_phases</span><span class="p">(</span>
+    <span class="n">predict</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">true</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">delta</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Huber loss with phases</span>
+
+<span class="sd">    :param predict: predicted values</span>
+<span class="sd">    :type predict: torch.Tensor</span>
+<span class="sd">    :param true: true values</span>
+<span class="sd">    :type true: torch.Tensor</span>
+<span class="sd">    :return: MSE with phases</span>
+<span class="sd">    :rtype: torch.Tensor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">minus</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">true</span> <span class="o">-</span> <span class="n">predict</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plus</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">true</span> <span class="o">+</span> <span class="n">predict</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">minus</span><span class="p">,</span> <span class="n">plus</span><span class="p">)</span>
+
+    <span class="c1"># Condition: Is the absolute true value smaller than delta?</span>
+    <span class="n">mse_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">true</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">delta</span>
+
+    <span class="c1"># MSE for true values smaller than delta</span>
+    <span class="n">mse_loss</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">diff</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="c1"># Linear and quadratic loss for true values greater than or equal to delta</span>
+    <span class="n">quadratic</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+    <span class="n">linear_loss</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">*</span> <span class="p">(</span><span class="n">diff</span> <span class="o">-</span> <span class="n">quadratic</span><span class="p">)</span>
+    <span class="n">huber_loss</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">quadratic</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">linear_loss</span>
+
+    <span class="c1"># Combine both losses based on the condition</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mse_mask</span><span class="p">,</span> <span class="n">mse_loss</span><span class="p">,</span> <span class="n">huber_loss</span><span class="p">)</span>
+
+    <span class="c1"># Return the mean loss over all elements</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="o">/</span> <span class="n">predict</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numel</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="MAEPhaseLoss">
@@ -277,6 +366,19 @@
 <a class="viewcode-back" href="../../../../api_documentation/hippynn.graphs.nodes.excited.html#hippynn.graphs.nodes.excited.MSEPhaseLoss">[docs]</a>
 <span class="k">class</span> <span class="nc">MSEPhaseLoss</span><span class="p">(</span><span class="n">_BaseCompareLoss</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">_mse_with_phases</span><span class="p">):</span>
     <span class="k">pass</span></div>
+
+
+
+<div class="viewcode-block" id="HuberPhaseLoss">
+<a class="viewcode-back" href="../../../../api_documentation/hippynn.graphs.nodes.excited.html#hippynn.graphs.nodes.excited.HuberPhaseLoss">[docs]</a>
+<span class="k">class</span> <span class="nc">HuberPhaseLoss</span><span class="p">(</span><span class="n">_BaseCompareLoss</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">delta</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`delta` must be given for a Huber loss function&quot;</span><span class="p">)</span>
+        <span class="n">huber</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">_huber_loss_with_phases</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="n">delta</span><span class="p">)</span>
+        <span class="n">huber</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s2">&quot;_huber_loss_with_phases&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init_subclass__</span><span class="p">(</span><span class="n">op</span><span class="o">=</span><span class="n">huber</span><span class="p">)</span></div>
 
 </pre></div>
 
