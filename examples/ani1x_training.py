@@ -3,8 +3,6 @@ Example script for training HIP-NN directly from the ANI1x_datasets h5 file.
 
 This script was designed for an external dataset available at
 https://doi.org/10.6084/m9.figshare.c.4712477
-pyanitools reader available at
-https://github.com/aiqm/ANI1x_datasets
 
 For info on the dataset, see the following publication:
 Smith, J.S., Zubatyuk, R., Nebgen, B. et al.
@@ -20,10 +18,6 @@ import torch
 import hippynn
 import ase.units
 
-import sys
-sys.path.append("../../datasets/ani-al/readers/lib/")
-
-import pyanitools
 
 def make_model(network_params,tensor_order):
     """
@@ -114,7 +108,7 @@ def load_db(db_info, en_name, force_name, seed, anidata_location, n_workers):
     found_indices = ~np.isnan(database.arr_dict[en_name])
     database.arr_dict = {k: v[found_indices] for k, v in database.arr_dict.items()}
 
-    database.make_trainvalidtest_split(0.1, 0.1)
+    database.make_trainvalidtest_split(test_size=0.1, valid_size=0.1)
     return database
 
 

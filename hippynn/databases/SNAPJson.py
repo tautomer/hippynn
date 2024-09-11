@@ -25,6 +25,7 @@ class SNAPDirectoryDatabase(Database, Restartable):
         transpose_cell=True,
         allow_unfound=False,
         quiet=False,
+        n_comments=1,
         **kwargs,
     ):
 
@@ -34,6 +35,7 @@ class SNAPDirectoryDatabase(Database, Restartable):
         self.targets = targets
         self.transpose_cell = transpose_cell
         self.depth = depth
+        self.n_comments = n_comments
         arr_dict = self.load_arrays(quiet=quiet, allow_unfound=allow_unfound)
 
         super().__init__(arr_dict, inputs, targets, *args, **kwargs, allow_unfound=allow_unfound, quiet=quiet)
@@ -46,6 +48,7 @@ class SNAPDirectoryDatabase(Database, Restartable):
             transpose_cell=transpose_cell,
             files=files,
             allow_unfound=allow_unfound,
+            n_comments=n_comments,
             **kwargs,
             quiet=quiet,
         )
@@ -96,7 +99,8 @@ class SNAPDirectoryDatabase(Database, Restartable):
 
     def extract_snap_file(self, file):
         with open(file, "rt") as jf:
-            comment = jf.readline()
+            for i in range(self.n_comments):
+                comment = jf.readline()
             content = jf.read()
         parsed = json.loads(content)
         dataset = parsed["Dataset"]

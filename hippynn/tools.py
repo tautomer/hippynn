@@ -11,7 +11,7 @@ import torch
 from . import settings
 
 
-class teed_file_output:
+class TeedFileOutput:
     def __init__(self, *streams):
         self.streams = streams
 
@@ -42,8 +42,8 @@ def log_terminal(file, *args, **kwargs):
         file = open(file, *args, **kwargs)
     else:
         close_on_exit = False
-    teed_stderr = teed_file_output(file, sys.stderr)
-    teed_stdout = teed_file_output(file, sys.stdout)
+    teed_stderr = TeedFileOutput(file, sys.stderr)
+    teed_stdout = TeedFileOutput(file, sys.stdout)
     with contextlib.redirect_stderr(teed_stderr):
         with contextlib.redirect_stdout(teed_stdout):
             try:
@@ -102,6 +102,16 @@ def active_directory(dirname, create=None):
 
 
 def progress_bar(iterable, *args, **kwargs):
+    """
+    Wrap an iterable in a progress bar according to hippynn's current progress bar settings.
+
+    for args and kwargs, see tqdm documentation.
+
+    :param iterable:
+    :param args:
+    :param kwargs:
+    :return:
+    """
     if settings.PROGRESS is None:
         return iterable
     else:
@@ -120,6 +130,7 @@ def param_print(module):
 def device_fallback():
     device = (torch.cuda.is_available() and torch.device(torch.cuda.current_device())) or torch.device("cpu")
     print("Device was not specified. Attempting to default to device:", device)
+    device = torch.device(device.type)
     return device
 
 
@@ -132,9 +143,9 @@ def arrdict_len(array_dictionary):
     return len(next(iter(array_dictionary.values())))
 
 
-def print_lr(optimizer):
+def print_lr(optimizer, print_=print):
     for i, param_group in enumerate(optimizer.param_groups):
-        print("Learning rate:{:>10.5g}".format(param_group["lr"]))
+        print_("Learning rate:{:>10.5g}".format(param_group["lr"]))
 
 
 def isiterable(obj):
@@ -150,11 +161,28 @@ def pad_np_array_to_length_with_zeros(array, length, axis=0):
     pad_width[axis][1] = m
     return np.pad(array, pad_width, mode="constant")
 
+def unsqueeze_multiple(tensor, dims: tuple):
+    """
+    Adds unsqueezing dimensions dimensions
+    :param tensor:
+    :param dims:
+    :return:
+    """
+    if len(dims)==0:
+        return tensor
+    dims = tuple(sorted(dims))
+    while dims:
+        d, *rest = dims
+        tensor = tensor.unsqueeze(d)
+        dims = tuple(d+1 for d in rest)
+    return tensor
+
 
 def np_of_torchdefaultdtype():
     return torch.ones(1, dtype=torch.get_default_dtype()).numpy().dtype
 
-def is_equal_state_dict(d1, d2):
+
+def is_equal_state_dict(d1, d2, raise_where=False):
     """
     Checks if two pytorch state dictionaries are equal. Calls itself recursively
     if the value for a parameter is a dictionary.
@@ -162,27 +190,58 @@ def is_equal_state_dict(d1, d2):
 
     :param d1:
     :param d2:
+    :param raise_where: if not equal, use an assertion to fail.
     :return:
     """
     if set(d1.keys()) != set(d2.keys()):
+        if raise_where:
+            raise AssertionError(f"State dictionaries not equal keys: {set(d1.keys())=}, {d2.keys()=}")
         # They have different sets of keys.
         return False
     for k in d1:
         v1 = d1[k]
         v2 = d2[k]
         if type(v1) != type(v2):
+            if raise_where:
+                raise AssertionError(f"State dictionaries not equal at key {k}; {v1} != {v2})")
             return False
         if isinstance(v1, torch.Tensor):
             if torch.equal(v1, v2):
                 continue
             else:
+
+                if raise_where:
+                    if v1.shape!=v2.shape:
+                        raise AssertionError(f"State dictionaries not equal at key {k}" +
+                                             f" due to shapes: {v1.shape=},{v2.shape=}")
+                    where_not_equal = torch.where(torch.ne(v1,v2))
+                    raise AssertionError(f"State dictionaries not equal at key {k}" +
+                                         f" at locations {where_not_equal};" +
+                                         f" {v1[where_not_equal]} != {v2[where_not_equal]})")
                 return False
         elif isinstance(v1, dict):
             # call recursive:
-            return is_equal_state_dict(v1, v2)
+            return is_equal_state_dict(v1, v2, raise_where=raise_where)
         elif v1 != v2:
+            if raise_where:
+                raise AssertionError(f"State dictionaries not equal at key {k}; {v1} != {v2})")
             return False
 
     return True
 
 
+def recursive_param_count(state_dict, n=0):
+    for k, v in state_dict.items():
+        if isinstance(v, torch.Tensor):
+            n += v.numel()
+        elif isinstance(v, dict):
+            n += recursive_param_count(v)
+        elif isinstance(v, (list, tuple)):
+            n += recursive_param_count({i: x for i, x in enumerate(v)})
+        elif isinstance(v, (float, int)):
+            n += 1
+        elif v is None:
+            pass
+        else:
+            raise TypeError(f'Unknown type {type(v)=}, value={v}')
+    return n

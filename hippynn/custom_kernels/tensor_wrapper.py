@@ -7,6 +7,7 @@ import numba
 import torch
 from .fast_convert import batch_convert_torch_to_numba
 
+
 def via_numpy(func):
     """Decorator for piping a function through
     numpy arrays, and then giving the result back to torch.
@@ -23,18 +24,22 @@ def via_numpy(func):
 
     return wrapped
 
-def _numba_gpu_not_found(*args,**kwargs):
-    raise RuntimeError("Error: Numba not configured to run on GPU.\n"
-                       "numba.cuda.is_available() returned False; numba was not able to find a GPU.\n"
-                       "Verify that your numba installation is able to find cuda toolkit, as this \n"
-                       "error condition likely indicates that torch can find the GPU, but numba can't.\n"
-                       "Alternatively, disable custom kernels.")
+
+def _numba_gpu_not_found(*args, **kwargs):
+    raise RuntimeError(
+        "Error: Numba not configured to run on GPU.\n"
+        "numba.cuda.is_available() returned False; numba was not able to find a GPU.\n"
+        "Verify that your numba installation is able to find cuda toolkit, as this \n"
+        "error condition likely indicates that torch can find the GPU, but numba can't.\n"
+        "Alternatively, disable custom kernels."
+    )
+
 
 class NumbaCompatibleTensorFunction:
     def __init__(self):
         if numba.cuda.is_available():
-            self.kernel64 = self.make_kernel(numba.float64)
-            self.kernel32 = self.make_kernel(numba.float32)
+            self.kernel64 = None
+            self.kernel32 = None
         else:
             self.kernel64 = _numba_gpu_not_found
             self.kernel32 = _numba_gpu_not_found
@@ -54,8 +59,12 @@ class NumbaCompatibleTensorFunction:
             with numba.cuda.gpus[dev.index]:
                 numba_args = batch_convert_torch_to_numba(*args)
                 if dtype == torch.float64:
+                    if self.kernel64 is None:
+                        self.kernel64 = self.make_kernel(numba.float64)
                     self.kernel64[launch_bounds](*numba_args)
                 elif dtype == torch.float32:
+                    if self.kernel32 is None:
+                        self.kernel32 = self.make_kernel(numba.float32)
                     self.kernel32[launch_bounds](*numba_args)
                 else:
                     raise ValueError("Bad dtype: {}".format(dtype))

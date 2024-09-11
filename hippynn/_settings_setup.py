@@ -29,16 +29,22 @@ except ImportError:
         TQDM_PROGRESS = None
 
 if TQDM_PROGRESS is not None:
-    TQDM_PROGRESS = partial(TQDM_PROGRESS, mininterval=1.0, leave=False)
-
+    DEFAULT_PROGRESS = partial(TQDM_PROGRESS, mininterval=1.0, leave=False)
+else:
+    DEFAULT_PROGRESS = None
 ### Progress handlers
-
 
 def progress_handler(prog_str):
     if prog_str == "tqdm":
-        return TQDM_PROGRESS
-    if prog_str.lower() == "none":
+        return DEFAULT_PROGRESS
+    elif prog_str.lower() == "none":
         return None
+    else:
+        try:
+            prog_float = float(prog_str)
+            return partial(TQDM_PROGRESS, mininterval=prog_float, leave=False)
+        except:
+            pass
     warnings.warn(f"Unrecognized progress setting: '{prog_str}'. Setting to none.")
 
 
@@ -54,7 +60,7 @@ def kernel_handler(kernel_string):
         "true": True,
     }.get(kernel_string, kernel_string)
 
-    if kernel not in [True, False, "auto", "cupy", "numba"]:
+    if kernel not in [True, False, "auto", "triton", "cupy", "numba"]:
         warnings.warn(f"Unrecognized custom kernel option: {kernel_string}. Setting custom kernels to 'auto'")
         kernel = "auto"
 
@@ -63,7 +69,7 @@ def kernel_handler(kernel_string):
 
 # keys: defaults, types, and handlers
 default_settings = {
-    "PROGRESS": (TQDM_PROGRESS, progress_handler),
+    "PROGRESS": (DEFAULT_PROGRESS, progress_handler),
     "DEFAULT_PLOT_FILETYPE": (".pdf", str),
     "TRANSPARENT_PLOT": (False, strtobool),
     "DEBUG_LOSS_BROADCAST": (False, strtobool),
@@ -73,6 +79,7 @@ default_settings = {
     "USE_CUSTOM_KERNELS": ("auto", kernel_handler),
     "WARN_LOW_DISTANCES": (True, strtobool),
     "TIMEPLOT_AUTOSCALING": (True, strtobool),
+    "PYTORCH_GPU_MEM_FRAC": (1.0, float),
 }
 
 settings = SimpleNamespace(**{k: default for k, (default, handler) in default_settings.items()})
@@ -84,11 +91,16 @@ See :doc:`/user_guide/settings` for a description.
 config_sources = {}  # Dictionary of configuration variable sources mapping to dictionary of configuration.
 # We add to this dictionary in order of application
 
+SECTION_NAME = "GLOBALS"
+
 rc_name = os.path.expanduser("~/.hippynnrc")
 if os.path.exists(rc_name) and os.path.isfile(rc_name):
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(inline_comment_prefixes="#")
     config.read(rc_name)
-    config_sources["~/.hippynnrc"] = config["GLOBALS"]
+    if SECTION_NAME not in config:
+        warnings.warn(f"Config file {rc_name} does not contain a {SECTION_NAME} section and will be ignored!")
+    else:
+        config_sources["~/.hippynnrc"] = config[SECTION_NAME]
 
 SETTING_PREFIX = "HIPPYNN_"
 hippynn_environment_variables = {
@@ -102,7 +114,10 @@ if LOCAL_RC_FILE_KEY in hippynn_environment_variables:
     if os.path.exists(local_rc_fname) and os.path.isfile(local_rc_fname):
         local_config = configparser.ConfigParser()
         local_config.read(local_rc_fname)
-        config_sources[LOCAL_RC_FILE_KEY] = local_config["GLOBALS"]
+        if SECTION_NAME not in local_config:
+            warnings.warn(f"Config file {local_rc_fname} does not contain a {SECTION_NAME} section and will be ignored!")
+        else:
+            config_sources[LOCAL_RC_FILE_KEY] = local_config[SECTION_NAME]
     else:
         warnings.warn(f"Local configuration file {local_rc_fname} not found.")
 

@@ -19,7 +19,7 @@
 
 project = "hippynn"
 copyright = "2019, Los Alamos National Laboratory"
-author = "Nicholas Lubbers"
+author = "Nicholas Lubbers et al"
 
 # The full version, including alpha/beta/rc tags
 import hippynn
@@ -45,9 +45,11 @@ autodoc_default_options = {
     "no-show-inheritance": True,
     "special-members": "__init__",
 }
+autodoc_member_order = 'bysource'
+
 
 # The following are highly optional, so we mock them for doc purposes.
-autodoc_mock_imports = ["pyanitools", "seqm", "schnetpack", "cupy", "lammps", "numba"]
+autodoc_mock_imports = ["pyanitools", "seqm", "schnetpack", "cupy", "lammps", "numba", "triton", "pytorch_lightning", 'triton', 'scipy']
 
 
 # -- Options for HTML output -------------------------------------------------
