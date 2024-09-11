@@ -23,7 +23,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="hippynn.plotting.plotmaker module" href="hippynn.plotting.plotmaker.html" />
-    <link rel="prev" title="hippynn.networks.hipnn module" href="hippynn.networks.hipnn.html" /> 
+    <link rel="prev" title="hippynn.optimizer.utils module" href="hippynn.optimizer.utils.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -58,7 +58,9 @@
 <li class="toctree-l3"><a class="reference internal" href="hippynn.graphs.html">hippynn.graphs package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.interfaces.html">hippynn.interfaces package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.html">hippynn.layers package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.molecular_dynamics.html">hippynn.molecular_dynamics package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.networks.html">hippynn.networks package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.optimizer.html">hippynn.optimizer package</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">hippynn.plotting package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="hippynn.plotting.plotmaker.html">hippynn.plotting.plotmaker module</a></li>
@@ -96,7 +98,7 @@
             <a href="../_sources/api_documentation/hippynn.plotting.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Sequential page navigation">
-        <a href="hippynn.networks.hipnn.html" class="btn btn-neutral float-left" title="hippynn.networks.hipnn module" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hippynn.optimizer.utils.html" class="btn btn-neutral float-left" title="hippynn.optimizer.utils module" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="hippynn.plotting.plotmaker.html" class="btn btn-neutral float-right" title="hippynn.plotting.plotmaker module" accesskey="n">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
   </div>
   <hr/>
@@ -114,18 +116,31 @@
 <li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotmaker.html#hippynn.plotting.plotmaker.PlotMaker"><code class="docutils literal notranslate"><span class="pre">PlotMaker</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotmaker.html#hippynn.plotting.plotmaker.PlotMaker.__init__"><code class="docutils literal notranslate"><span class="pre">PlotMaker.__init__()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotmaker.html#hippynn.plotting.plotmaker.PlotMaker.assemble_module"><code class="docutils literal notranslate"><span class="pre">PlotMaker.assemble_module()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotmaker.html#hippynn.plotting.plotmaker.PlotMaker.make_full_location"><code class="docutils literal notranslate"><span class="pre">PlotMaker.make_full_location()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotmaker.html#hippynn.plotting.plotmaker.PlotMaker.make_plots"><code class="docutils literal notranslate"><span class="pre">PlotMaker.make_plots()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotmaker.html#hippynn.plotting.plotmaker.PlotMaker.plot_phase"><code class="docutils literal notranslate"><span class="pre">PlotMaker.plot_phase()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotmaker.html#hippynn.plotting.plotmaker.PlotMaker.required_nodes"><code class="docutils literal notranslate"><span class="pre">PlotMaker.required_nodes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotmaker.html#hippynn.plotting.plotmaker.PlotMaker.make_plots"><code class="docutils literal notranslate"><span class="pre">PlotMaker.make_plots()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotmaker.html#hippynn.plotting.plotmaker.PlotMaker.make_full_location"><code class="docutils literal notranslate"><span class="pre">PlotMaker.make_full_location()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotmaker.html#hippynn.plotting.plotmaker.PlotMaker.plot_phase"><code class="docutils literal notranslate"><span class="pre">PlotMaker.plot_phase()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="hippynn.plotting.plotters.html">hippynn.plotting.plotters module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Plotter"><code class="docutils literal notranslate"><span class="pre">Plotter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Plotter.__init__"><code class="docutils literal notranslate"><span class="pre">Plotter.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Plotter.make_plot"><code class="docutils literal notranslate"><span class="pre">Plotter.make_plot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Plotter.plt_fn"><code class="docutils literal notranslate"><span class="pre">Plotter.plt_fn()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.as_numpy"><code class="docutils literal notranslate"><span class="pre">as_numpy()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.ComposedPlotter"><code class="docutils literal notranslate"><span class="pre">ComposedPlotter</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.ComposedPlotter.__init__"><code class="docutils literal notranslate"><span class="pre">ComposedPlotter.__init__()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.ComposedPlotter.plt_fn"><code class="docutils literal notranslate"><span class="pre">ComposedPlotter.plt_fn()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist2D"><code class="docutils literal notranslate"><span class="pre">Hist2D</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist2D.__init__"><code class="docutils literal notranslate"><span class="pre">Hist2D.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist2D.plt_fn"><code class="docutils literal notranslate"><span class="pre">Hist2D.plt_fn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist2D.norm"><code class="docutils literal notranslate"><span class="pre">Hist2D.norm</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.HierarchicalityPlot"><code class="docutils literal notranslate"><span class="pre">HierarchicalityPlot</span></code></a><ul>
@@ -133,31 +148,14 @@
 <li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.HierarchicalityPlot.plt_fn"><code class="docutils literal notranslate"><span class="pre">HierarchicalityPlot.plt_fn()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist1D"><code class="docutils literal notranslate"><span class="pre">Hist1D</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist1D.__init__"><code class="docutils literal notranslate"><span class="pre">Hist1D.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist1D.plt_fn"><code class="docutils literal notranslate"><span class="pre">Hist1D.plt_fn()</span></code></a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist1DComp"><code class="docutils literal notranslate"><span class="pre">Hist1DComp</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist1DComp.__init__"><code class="docutils literal notranslate"><span class="pre">Hist1DComp.__init__()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist1DComp.plt_fn"><code class="docutils literal notranslate"><span class="pre">Hist1DComp.plt_fn()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist2D"><code class="docutils literal notranslate"><span class="pre">Hist2D</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist2D.__init__"><code class="docutils literal notranslate"><span class="pre">Hist2D.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist2D.norm"><code class="docutils literal notranslate"><span class="pre">Hist2D.norm</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist2D.plt_fn"><code class="docutils literal notranslate"><span class="pre">Hist2D.plt_fn()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.InteractionPlot"><code class="docutils literal notranslate"><span class="pre">InteractionPlot</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.InteractionPlot.__init__"><code class="docutils literal notranslate"><span class="pre">InteractionPlot.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.InteractionPlot.plt_fn"><code class="docutils literal notranslate"><span class="pre">InteractionPlot.plt_fn()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Plotter"><code class="docutils literal notranslate"><span class="pre">Plotter</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Plotter.__init__"><code class="docutils literal notranslate"><span class="pre">Plotter.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Plotter.make_plot"><code class="docutils literal notranslate"><span class="pre">Plotter.make_plot()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Plotter.plt_fn"><code class="docutils literal notranslate"><span class="pre">Plotter.plt_fn()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist1D"><code class="docutils literal notranslate"><span class="pre">Hist1D</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist1D.__init__"><code class="docutils literal notranslate"><span class="pre">Hist1D.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.Hist1D.plt_fn"><code class="docutils literal notranslate"><span class="pre">Hist1D.plt_fn()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.SensitivityPlot"><code class="docutils literal notranslate"><span class="pre">SensitivityPlot</span></code></a><ul>
@@ -165,7 +163,11 @@
 <li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.SensitivityPlot.plt_fn"><code class="docutils literal notranslate"><span class="pre">SensitivityPlot.plt_fn()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.as_numpy"><code class="docutils literal notranslate"><span class="pre">as_numpy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.InteractionPlot"><code class="docutils literal notranslate"><span class="pre">InteractionPlot</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.InteractionPlot.__init__"><code class="docutils literal notranslate"><span class="pre">InteractionPlot.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.plotters.html#hippynn.plotting.plotters.InteractionPlot.plt_fn"><code class="docutils literal notranslate"><span class="pre">InteractionPlot.plt_fn()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="hippynn.plotting.timeplots.html">hippynn.plotting.timeplots module</a><ul>
@@ -182,7 +184,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="hippynn.networks.hipnn.html" class="btn btn-neutral float-left" title="hippynn.networks.hipnn module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hippynn.optimizer.utils.html" class="btn btn-neutral float-left" title="hippynn.optimizer.utils module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="hippynn.plotting.plotmaker.html" class="btn btn-neutral float-right" title="hippynn.plotting.plotmaker module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

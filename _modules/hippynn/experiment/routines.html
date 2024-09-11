@@ -99,6 +99,8 @@
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">tools</span>
 <span class="kn">from</span> <span class="nn">.assembly</span> <span class="kn">import</span> <span class="n">TrainingModules</span>
 <span class="kn">from</span> <span class="nn">.step_functions</span> <span class="kn">import</span> <span class="n">get_step_function</span>
+<span class="kn">from</span> <span class="nn">..databases</span> <span class="kn">import</span> <span class="n">Database</span>
+
 
 <span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">custom_kernels</span>
 
@@ -184,7 +186,7 @@
 <a class="viewcode-back" href="../../../api_documentation/hippynn.experiment.routines.html#hippynn.experiment.setup_and_train">[docs]</a>
 <span class="k">def</span> <span class="nf">setup_and_train</span><span class="p">(</span>
     <span class="n">training_modules</span><span class="p">:</span> <span class="n">TrainingModules</span><span class="p">,</span>
-    <span class="n">database</span><span class="p">,</span>
+    <span class="n">database</span><span class="p">:</span> <span class="n">Database</span><span class="p">,</span>
     <span class="n">setup_params</span><span class="p">:</span> <span class="n">SetupParams</span><span class="p">,</span>
     <span class="n">store_all_better</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">store_best</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -293,8 +295,8 @@
         <span class="n">model</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">evaluator</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">setup_params</span><span class="o">.</span><span class="n">device</span> <span class="ow">or</span> <span class="n">tools</span><span class="o">.</span><span class="n">device_fallback</span><span class="p">()</span>
     <span class="p">)</span>
 
-    <span class="n">metrics</span> <span class="o">=</span> <span class="n">MetricTracker</span><span class="p">(</span><span class="n">evaluator</span><span class="o">.</span><span class="n">loss_names</span><span class="p">,</span> <span class="n">stopping_key</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">stopping_key</span><span class="p">)</span>
-
+    <span class="n">metrics</span> <span class="o">=</span> <span class="n">MetricTracker</span><span class="p">(</span><span class="n">evaluator</span><span class="o">.</span><span class="n">loss_names</span><span class="p">,</span>
+                            <span class="n">stopping_key</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">stopping_key</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">training_modules</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="n">metrics</span></div>
 
 
@@ -395,9 +397,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finishing up...&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training phase ended.&quot;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">store_metrics</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;training_metrics.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pfile</span><span class="p">:</span>
-            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">metric_tracker</span><span class="p">,</span> <span class="n">pfile</span><span class="p">)</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">metric_tracker</span><span class="p">,</span> <span class="s2">&quot;training_metrics.pt&quot;</span><span class="p">)</span>
 
     <span class="n">best_model</span> <span class="o">=</span> <span class="n">metric_tracker</span><span class="o">.</span><span class="n">best_model</span>
     <span class="k">if</span> <span class="n">best_model</span><span class="p">:</span>
@@ -445,17 +445,21 @@
 
     <span class="k">if</span> <span class="n">metric_tracker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">metric_tracker</span> <span class="o">=</span> <span class="n">MetricTracker</span><span class="p">(</span><span class="n">evaluator</span><span class="o">.</span><span class="n">loss_names</span><span class="p">,</span> <span class="n">stopping_key</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="n">metric_tracker</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># A little dance to make sure train, valid, test always come first, when present.</span>
+    <span class="n">basic_splits</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;valid&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">]</span>
+    <span class="n">basic_splits</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">basic_splits</span> <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">database</span><span class="o">.</span><span class="n">splits</span><span class="p">]</span>
+    <span class="n">splits</span> <span class="o">=</span> <span class="n">basic_splits</span> <span class="o">+</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">database</span><span class="o">.</span><span class="n">splits</span> <span class="k">if</span> <span class="n">s</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">basic_splits</span><span class="p">]</span>
+
     <span class="n">evaluation_data</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span>
         <span class="p">(</span>
-            <span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="n">database</span><span class="o">.</span><span class="n">make_generator</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;eval&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)),</span>
-            <span class="p">(</span><span class="s2">&quot;valid&quot;</span><span class="p">,</span> <span class="n">database</span><span class="o">.</span><span class="n">make_generator</span><span class="p">(</span><span class="s2">&quot;valid&quot;</span><span class="p">,</span> <span class="s2">&quot;eval&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)),</span>
-            <span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">database</span><span class="o">.</span><span class="n">make_generator</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;eval&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)),</span>
+            <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">database</span><span class="o">.</span><span class="n">make_generator</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s2">&quot;eval&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">splits</span>
         <span class="p">)</span>
     <span class="p">)</span>
     <span class="n">evaluation_metrics</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">gen</span><span class="p">,</span> <span class="n">eval_type</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="n">when</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">gen</span> <span class="ow">in</span> <span class="n">evaluation_data</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
     <span class="n">metric_tracker</span><span class="o">.</span><span class="n">register_metrics</span><span class="p">(</span><span class="n">evaluation_metrics</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="n">when</span><span class="p">)</span>
-    <span class="n">metric_tracker</span><span class="o">.</span><span class="n">evaluation_print</span><span class="p">(</span><span class="n">evaluation_metrics</span><span class="p">)</span>
+    <span class="n">metric_tracker</span><span class="o">.</span><span class="n">evaluation_print</span><span class="p">(</span><span class="n">evaluation_metrics</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">metric_tracker</span></div>
 
 
@@ -539,6 +543,7 @@
         <span class="n">qprint</span><span class="p">(</span><span class="s2">&quot;_&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
         <span class="n">qprint</span><span class="p">(</span><span class="s2">&quot;Epoch </span><span class="si">{}</span><span class="s2">:&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epoch</span><span class="p">))</span>
         <span class="n">tools</span><span class="o">.</span><span class="n">print_lr</span><span class="p">(</span><span class="n">optimizer</span><span class="p">)</span>
+        <span class="n">qprint</span><span class="p">(</span><span class="s2">&quot;Batch Size:&quot;</span><span class="p">,</span> <span class="n">controller</span><span class="o">.</span><span class="n">batch_size</span><span class="p">)</span>
 
         <span class="n">qprint</span><span class="p">(</span><span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 

@@ -31,7 +31,7 @@ The following settings are available:
      - Dynamic
    * - PROGRESS
      - Progress bars function during training, evaluation, and prediction
-     - tqdm, none
+     - tqdm, none, or floating point string specifying default update rate in seconds (default 1).
      - tqdm
      - Yes, but assign this to a generator-wrapper such as ``tqdm.tqdm``, or with a python ``None`` to disable. The wrapper must accept ``tqdm`` arguments, although it technically doesn't have to do anything with them.
    * - DEFAULT_PLOT_FILETYPE
@@ -45,8 +45,8 @@ The following settings are available:
      - false
      - Yes
    * - USE_CUSTOM_KERNELS
-     - Use custom kernels with numba or cupy. Auto tries to detect the installation of numba or cupy. For more info see :doc:`/user_guide/ckernels`.
-     - auto, true, false, pytorch, numba, cupy
+     - Use custom kernels with triton, numba or cupy. Auto tries to detect the installation. For more info see :doc:`/user_guide/ckernels`.
+     - auto, true, false, pytorch, numba, cupy, triton
      - auto
      - Not directly, use :func:`~hippynn.custom_kernels.set_custom_kernels`
    * - WARN_LOW_DISTANCES
@@ -64,3 +64,13 @@ The following settings are available:
      - true, false
      - false
      - no
+   * - PYTORCH_GPU_MEM_FRAC
+     - In the Lammps interface, limit the amount of memory used by pytorch. Setting this value below 1.0 can force pytorch to garbage collect before entirely depleating GPU memory, leaving room for Lammps/KOKKOS. Leaving this variable unset imposes no pytorch memory limit
+     - float between 0 and 1
+     - 1.0
+     - no
+   * - TIMEPLOT_AUTOSCALING
+     - If True, only provide log-scaled plots of training quantities over time if warranted by the data. If False, always produce all plots in linear, log, and loglog scales.
+     - bool
+     - True
+     - yes

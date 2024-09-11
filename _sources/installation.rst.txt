@@ -2,7 +2,6 @@ Installation
 ============
 
 
-
 Requirements
 ^^^^^^^^^^^^
 
@@ -10,21 +9,25 @@ Requirements:
     * Python_ >= 3.9
     * pytorch_ >= 1.9
     * numpy_
+
 Optional Dependencies:
-    * numba_ (recommended, for accelerating performance)
-    * cupy_ (also for accelerating performance)
-    * ASE_ (for usage with ase)
+    * triton_ (recommended, for improved GPU performance)
+    * numba_ (recommended for improved CPU performance)
+    * cupy_ (alternative for accelerating GPU performance)
+    * ASE_ (for usage with ase and other misc. features)
     * matplotlib_ (for plotting)
     * tqdm_ (for progress bars)
-    * graphviz_ (for viewing model graphs as figures)
-    * h5py_ (for ani-h5 datasets)
-    * pyanitools_ (for ani-h5 datasets)
+    * graphviz_ (for visualizing model graphs)
+    * h5py_ (for loading ani-h5 datasets)
+    * pyanitools_ (for loading ani-h5 datasets)
+    * pytorch-lightning_ (for distributed training)
 
 Interfacing codes:
     * ASE_
     * PYSEQM_
     * LAMMPS_
 
+.. _triton: https://triton-lang.org/
 .. _numpy: https://numpy.org/
 .. _Python: http://www.python.org
 .. _pytorch: http://www.pytorch.org
@@ -38,6 +41,8 @@ Interfacing codes:
 .. _ASE: https://wiki.fysik.dtu.dk/ase/
 .. _LAMMPS: https://www.lammps.org/
 .. _PYSEQM: https://github.com/lanl/PYSEQM
+.. _pytorch-lightning: https://github.com/Lightning-AI/pytorch-lightning
+.. _hippynn: https://github.com/lanl/hippynn/
 
 
 Installation Instructions
@@ -63,11 +68,7 @@ Clone the hippynn_ repository and navigate into it, e.g.::
     $ git clone https://github.com/lanl/hippynn.git
     $ cd hippynn
 
-.. _hippynn: https://github.com/lanl/hippynn/
 
-.. note::
-  If you wish to do a cpu-only install, you may need to comment
-  out ``cupy`` from the conda_requirements.txt file.
 
 Dependencies using conda
 ........................
@@ -75,6 +76,10 @@ Dependencies using conda
 Install dependencies from conda using recommended channels::
 
     $ conda install -c pytorch -c conda-forge --file conda_requirements.txt
+
+.. note::
+  If you wish to do a cpu-only install, you may need to comment
+  out ``cupy`` from the conda_requirements.txt file.
 
 Dependencies using pip
 .......................

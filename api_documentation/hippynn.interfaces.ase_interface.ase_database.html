@@ -59,9 +59,9 @@
 <li class="toctree-l3 current"><a class="reference internal" href="hippynn.interfaces.html">hippynn.interfaces package</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="hippynn.interfaces.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l5 current"><a class="reference internal" href="hippynn.interfaces.ase_interface.html">hippynn.interfaces.ase_interface package</a><ul class="current">
-<li class="toctree-l6"><a class="reference internal" href="hippynn.interfaces.ase_interface.html#hippynn.interfaces.ase_interface.AseDatabase"><code class="docutils literal notranslate"><span class="pre">AseDatabase</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="hippynn.interfaces.ase_interface.html#hippynn.interfaces.ase_interface.HippynnCalculator"><code class="docutils literal notranslate"><span class="pre">HippynnCalculator</span></code></a></li>
 <li class="toctree-l6"><a class="reference internal" href="hippynn.interfaces.ase_interface.html#hippynn.interfaces.ase_interface.calculator_from_model"><code class="docutils literal notranslate"><span class="pre">calculator_from_model()</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="hippynn.interfaces.ase_interface.html#hippynn.interfaces.ase_interface.AseDatabase"><code class="docutils literal notranslate"><span class="pre">AseDatabase</span></code></a></li>
 <li class="toctree-l6 current"><a class="reference internal" href="hippynn.interfaces.ase_interface.html#submodules">Submodules</a><ul class="current">
 <li class="toctree-l7 current"><a class="current reference internal" href="#">hippynn.interfaces.ase_interface.ase_database module</a><ul>
 <li class="toctree-l8"><a class="reference internal" href="#hippynn.interfaces.ase_interface.ase_database.AseDatabase"><code class="docutils literal notranslate"><span class="pre">AseDatabase</span></code></a><ul>
@@ -86,7 +86,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.layers.html">hippynn.layers package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.molecular_dynamics.html">hippynn.molecular_dynamics package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.networks.html">hippynn.networks package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hippynn.optimizer.html">hippynn.optimizer package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="hippynn.plotting.html">hippynn.plotting package</a></li>
 </ul>
 </li>
@@ -176,13 +178,19 @@ variable db_name including all inputs and targets.</p>
 <li><p><strong>arr_dict</strong> – dictionary mapping strings to numpy arrays</p></li>
 <li><p><strong>inputs</strong> – list of strings for input db_names</p></li>
 <li><p><strong>targets</strong> – list of strings for output db_namees</p></li>
-<li><p><strong>seed</strong> – int, for random splitting</p></li>
+<li><p><strong>seed</strong> – int, for random splitting, or “mask” for pre-split.
+Can also be existing numpy.random.RandomState.
+Can also be tuple from numpy.random.RandomState.get_state()</p></li>
 <li><p><strong>test_size</strong> – fraction of data to use in test split</p></li>
 <li><p><strong>valid_size</strong> – fraction of data to use in train split</p></li>
 <li><p><strong>num_workers</strong> – passed to pytorch dataloaders</p></li>
 <li><p><strong>pin_memory</strong> – passed to pytorch dataloaders</p></li>
 <li><p><strong>allow_unfound</strong> – If true, skip checking if the needed inputs and targets are found.
 This allows setting inputs=None and/or targets=None.</p></li>
+<li><p><strong>auto_split</strong> – If true, look for keys like “split_*” to make initial splits from. See write_npz() method.</p></li>
+<li><p><strong>device</strong> – if set, move the dataset to this device after splitting.</p></li>
+<li><p><strong>dataloader_kwargs</strong> – dictionary, passed to pytorch dataloaders in addition to num_workers, pin_memory.
+Refer to pytorch documentation for details.</p></li>
 <li><p><strong>quiet</strong> – If True, print little or nothing while loading.</p></li>
 </ul>
 </dd>
