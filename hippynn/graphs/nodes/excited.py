@@ -1,10 +1,13 @@
+"""
+Nodes for excited state modeling.
+"""
+
 from functools import partial
 from typing import Tuple
 
 import torch
 
 from ...layers import excited as excited_layers
-from ...layers import physics as physics_layers
 from .. import IdxType, find_unique_relative
 from .base import AutoKw, ExpandParents, MultiNode, SingleNode
 from .loss import _BaseCompareLoss
