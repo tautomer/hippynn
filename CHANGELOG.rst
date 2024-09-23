@@ -36,6 +36,7 @@ New Features:
 Improvements:
 -------------
 
+- Added an example on hyperparameter optimization with Ax and Ray.
 - Eliminated dependency on pyanitools for loading ANI-style H5 datasets.
 - SNAPjson format can now support an optional number of comment lines.
 - Added unit conversion options to the LAMMPS interface.
