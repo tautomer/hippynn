@@ -7,14 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Index &mdash; hippynn 0+unknown documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=66b59bf7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e3456cac" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=c9d3d048"></script>
-      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="#" />
@@ -32,9 +32,6 @@
           <a href="index.html" class="icon icon-home">
             hippynn
           </a>
-              <div class="version">
-                0+unknown
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -545,6 +542,8 @@
       <ul>
         <li><a href="api_documentation/hippynn.custom_kernels.env_pytorch.html#hippynn.custom_kernels.env_pytorch.envsum">(in module hippynn.custom_kernels.env_pytorch)</a>
 </li>
+        <li><a href="api_documentation/hippynn.custom_kernels.env_sparse.html#hippynn.custom_kernels.env_sparse.envsum">(in module hippynn.custom_kernels.env_sparse)</a>
+</li>
       </ul></li>
       <li><a href="api_documentation/hippynn.experiment.html#hippynn.experiment.SetupParams.eval_batch_size">eval_batch_size (SetupParams attribute)</a>, <a href="api_documentation/hippynn.experiment.routines.html#hippynn.experiment.routines.SetupParams.eval_batch_size">[1]</a>
 </li>
@@ -724,6 +723,8 @@
 
       <ul>
         <li><a href="api_documentation/hippynn.custom_kernels.env_pytorch.html#hippynn.custom_kernels.env_pytorch.featsum">(in module hippynn.custom_kernels.env_pytorch)</a>
+</li>
+        <li><a href="api_documentation/hippynn.custom_kernels.env_sparse.html#hippynn.custom_kernels.env_sparse.featsum">(in module hippynn.custom_kernels.env_sparse)</a>
 </li>
       </ul></li>
       <li><a href="api_documentation/hippynn.databases.h5_pyanitools.html#hippynn.databases.h5_pyanitools.PyAniMethods.filter_arrays">filter_arrays() (PyAniMethods method)</a>
@@ -984,6 +985,8 @@
 </li>
       <li><a href="api_documentation/hippynn.optimizer.algorithms.html#hippynn.optimizer.algorithms.GeometryOptimizer">GeometryOptimizer (class in hippynn.optimizer.algorithms)</a>
 </li>
+      <li><a href="api_documentation/hippynn.custom_kernels.registry.html#hippynn.custom_kernels.registry.MessagePassingKernels.get_available_implementations">get_available_implementations() (MessagePassingKernels class method)</a>
+</li>
       <li><a href="api_documentation/hippynn.interfaces.ase_interface.calculator.html#hippynn.interfaces.ase_interface.calculator.HippynnCalculator.get_charges">get_charges() (HippynnCalculator method)</a>, <a href="api_documentation/hippynn.interfaces.ase_interface.html#hippynn.interfaces.ase_interface.HippynnCalculator.get_charges">[1]</a>
 </li>
       <li><a href="api_documentation/hippynn.graphs.html#hippynn.graphs.get_connected_nodes">get_connected_nodes() (in module hippynn.graphs)</a>
@@ -1014,10 +1017,12 @@
 </li>
       <li><a href="api_documentation/hippynn.graphs.ensemble.html#hippynn.graphs.ensemble.get_graphs">get_graphs() (in module hippynn.graphs.ensemble)</a>
 </li>
-      <li><a href="api_documentation/hippynn.interfaces.ase_interface.calculator.html#hippynn.interfaces.ase_interface.calculator.HippynnCalculator.get_magmom">get_magmom() (HippynnCalculator method)</a>, <a href="api_documentation/hippynn.interfaces.ase_interface.html#hippynn.interfaces.ase_interface.HippynnCalculator.get_magmom">[1]</a>
+      <li><a href="api_documentation/hippynn.custom_kernels.registry.html#hippynn.custom_kernels.registry.MessagePassingKernels.get_implementation">get_implementation() (MessagePassingKernels class method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_documentation/hippynn.interfaces.ase_interface.calculator.html#hippynn.interfaces.ase_interface.calculator.HippynnCalculator.get_magmom">get_magmom() (HippynnCalculator method)</a>, <a href="api_documentation/hippynn.interfaces.ase_interface.html#hippynn.interfaces.ase_interface.HippynnCalculator.get_magmom">[1]</a>
+</li>
       <li><a href="api_documentation/hippynn.interfaces.ase_interface.calculator.html#hippynn.interfaces.ase_interface.calculator.HippynnCalculator.get_magmoms">get_magmoms() (HippynnCalculator method)</a>, <a href="api_documentation/hippynn.interfaces.ase_interface.html#hippynn.interfaces.ase_interface.HippynnCalculator.get_magmoms">[1]</a>
 </li>
       <li><a href="api_documentation/hippynn.graphs.nodes.base.definition_helpers.html#hippynn.graphs.nodes.base.definition_helpers.ParentExpander.get_main_outputs">get_main_outputs() (ParentExpander method)</a>
@@ -1143,10 +1148,24 @@
 </li>
       </ul></li>
       <li>
+    hippynn.custom_kernels.env_sparse
+
+      <ul>
+        <li><a href="api_documentation/hippynn.custom_kernels.env_sparse.html#module-hippynn.custom_kernels.env_sparse">module</a>
+</li>
+      </ul></li>
+      <li>
     hippynn.custom_kernels.fast_convert
 
       <ul>
         <li><a href="api_documentation/hippynn.custom_kernels.fast_convert.html#module-hippynn.custom_kernels.fast_convert">module</a>
+</li>
+      </ul></li>
+      <li>
+    hippynn.custom_kernels.registry
+
+      <ul>
+        <li><a href="api_documentation/hippynn.custom_kernels.registry.html#module-hippynn.custom_kernels.registry">module</a>
 </li>
       </ul></li>
       <li>
@@ -1450,6 +1469,8 @@
         <li><a href="api_documentation/hippynn.graphs.nodes.networks.html#module-hippynn.graphs.nodes.networks">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     hippynn.graphs.nodes.pairs
 
@@ -1457,8 +1478,6 @@
         <li><a href="api_documentation/hippynn.graphs.nodes.pairs.html#module-hippynn.graphs.nodes.pairs">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     hippynn.graphs.nodes.physics
 
@@ -2145,6 +2164,8 @@
 </li>
       <li><a href="api_documentation/hippynn.databases.restarter.html#hippynn.databases.restarter.Restartable.make_restarter">make_restarter() (Restartable class method)</a>
 </li>
+      <li><a href="api_documentation/hippynn.custom_kernels.env_sparse.html#hippynn.custom_kernels.env_sparse.make_sparse_sense">make_sparse_sense() (in module hippynn.custom_kernels.env_sparse)</a>
+</li>
       <li><a href="api_documentation/hippynn.databases.database.html#hippynn.databases.database.Database.make_trainvalidtest_split">make_trainvalidtest_split() (Database method)</a>, <a href="api_documentation/hippynn.databases.html#hippynn.databases.Database.make_trainvalidtest_split">[1]</a>, <a href="api_documentation/hippynn.html#hippynn.Database.make_trainvalidtest_split">[2]</a>
 </li>
       <li><a href="api_documentation/hippynn.graphs.nodes.base.definition_helpers.html#hippynn.graphs.nodes.base.definition_helpers.ParentExpander.match">match() (ParentExpander method)</a>
@@ -2172,6 +2193,8 @@
       <li><a href="api_documentation/hippynn.graphs.gops.html#hippynn.graphs.gops.merge_children">merge_children() (in module hippynn.graphs.gops)</a>
 </li>
       <li><a href="api_documentation/hippynn.graphs.gops.html#hippynn.graphs.gops.merge_children_recursive">merge_children_recursive() (in module hippynn.graphs.gops)</a>
+</li>
+      <li><a href="api_documentation/hippynn.custom_kernels.registry.html#hippynn.custom_kernels.registry.MessagePassingKernels">MessagePassingKernels (class in hippynn.custom_kernels.registry)</a>
 </li>
       <li><a href="api_documentation/hippynn.experiment.metric_tracker.html#hippynn.experiment.metric_tracker.MetricTracker">MetricTracker (class in hippynn.experiment.metric_tracker)</a>
 </li>
@@ -2209,7 +2232,11 @@
 </li>
         <li><a href="api_documentation/hippynn.custom_kernels.env_pytorch.html#module-hippynn.custom_kernels.env_pytorch">hippynn.custom_kernels.env_pytorch</a>
 </li>
+        <li><a href="api_documentation/hippynn.custom_kernels.env_sparse.html#module-hippynn.custom_kernels.env_sparse">hippynn.custom_kernels.env_sparse</a>
+</li>
         <li><a href="api_documentation/hippynn.custom_kernels.fast_convert.html#module-hippynn.custom_kernels.fast_convert">hippynn.custom_kernels.fast_convert</a>
+</li>
+        <li><a href="api_documentation/hippynn.custom_kernels.registry.html#module-hippynn.custom_kernels.registry">hippynn.custom_kernels.registry</a>
 </li>
         <li><a href="api_documentation/hippynn.custom_kernels.tensor_wrapper.html#module-hippynn.custom_kernels.tensor_wrapper">hippynn.custom_kernels.tensor_wrapper</a>
 </li>
@@ -2693,7 +2720,7 @@
       <ul>
         <li><a href="api_documentation/hippynn.molecular_dynamics.html#hippynn.molecular_dynamics.NullUpdater.post_step">(NullUpdater method)</a>, <a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.NullUpdater.post_step">[1]</a>
 </li>
-        <li><a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.VariableUpdater.post_step">(VariableUpdater method)</a>
+        <li><a href="api_documentation/hippynn.molecular_dynamics.html#hippynn.molecular_dynamics.VariableUpdater.post_step">(VariableUpdater method)</a>, <a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.VariableUpdater.post_step">[1]</a>
 </li>
         <li><a href="api_documentation/hippynn.molecular_dynamics.html#hippynn.molecular_dynamics.VelocityVerlet.post_step">(VelocityVerlet method)</a>, <a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.VelocityVerlet.post_step">[1]</a>
 </li>
@@ -2705,7 +2732,7 @@
       <ul>
         <li><a href="api_documentation/hippynn.molecular_dynamics.html#hippynn.molecular_dynamics.NullUpdater.pre_step">(NullUpdater method)</a>, <a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.NullUpdater.pre_step">[1]</a>
 </li>
-        <li><a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.VariableUpdater.pre_step">(VariableUpdater method)</a>
+        <li><a href="api_documentation/hippynn.molecular_dynamics.html#hippynn.molecular_dynamics.VariableUpdater.pre_step">(VariableUpdater method)</a>, <a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.VariableUpdater.pre_step">[1]</a>
 </li>
         <li><a href="api_documentation/hippynn.molecular_dynamics.html#hippynn.molecular_dynamics.VelocityVerlet.pre_step">(VelocityVerlet method)</a>, <a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.VelocityVerlet.pre_step">[1]</a>
 </li>
@@ -2843,7 +2870,7 @@
       <li><a href="api_documentation/hippynn.molecular_dynamics.html#hippynn.molecular_dynamics.LangevinDynamics.required_variable_data">required_variable_data (LangevinDynamics attribute)</a>, <a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.LangevinDynamics.required_variable_data">[1]</a>
 
       <ul>
-        <li><a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.VariableUpdater.required_variable_data">(VariableUpdater attribute)</a>
+        <li><a href="api_documentation/hippynn.molecular_dynamics.html#hippynn.molecular_dynamics.VariableUpdater.required_variable_data">(VariableUpdater attribute)</a>, <a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.VariableUpdater.required_variable_data">[1]</a>
 </li>
         <li><a href="api_documentation/hippynn.molecular_dynamics.html#hippynn.molecular_dynamics.VelocityVerlet.required_variable_data">(VelocityVerlet attribute)</a>, <a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.VelocityVerlet.required_variable_data">[1]</a>
 </li>
@@ -2932,6 +2959,8 @@
 
       <ul>
         <li><a href="api_documentation/hippynn.custom_kernels.env_pytorch.html#hippynn.custom_kernels.env_pytorch.sensesum">(in module hippynn.custom_kernels.env_pytorch)</a>
+</li>
+        <li><a href="api_documentation/hippynn.custom_kernels.env_sparse.html#hippynn.custom_kernels.env_sparse.sensesum">(in module hippynn.custom_kernels.env_sparse)</a>
 </li>
       </ul></li>
       <li><a href="api_documentation/hippynn.networks.hipnn.html#hippynn.networks.hipnn.Hipnn.sensitivity_layers">sensitivity_layers (Hipnn property)</a>
@@ -3284,14 +3313,18 @@
         <li><a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.Variable">(class in hippynn.molecular_dynamics.md)</a>
 </li>
       </ul></li>
-      <li><a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.VariableUpdater.variable">variable (VariableUpdater property)</a>
+      <li><a href="api_documentation/hippynn.molecular_dynamics.html#hippynn.molecular_dynamics.VariableUpdater.variable">variable (VariableUpdater property)</a>, <a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.VariableUpdater.variable">[1]</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_documentation/hippynn.molecular_dynamics.html#hippynn.molecular_dynamics.MolecularDynamics.variables">variables (MolecularDynamics property)</a>, <a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.MolecularDynamics.variables">[1]</a>
 </li>
-      <li><a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.VariableUpdater">VariableUpdater (class in hippynn.molecular_dynamics.md)</a>
+      <li><a href="api_documentation/hippynn.molecular_dynamics.html#hippynn.molecular_dynamics.VariableUpdater">VariableUpdater (class in hippynn.molecular_dynamics)</a>
+
+      <ul>
+        <li><a href="api_documentation/hippynn.molecular_dynamics.md.html#hippynn.molecular_dynamics.md.VariableUpdater">(class in hippynn.molecular_dynamics.md)</a>
 </li>
+      </ul></li>
       <li><a href="api_documentation/hippynn.graphs.nodes.physics.html#hippynn.graphs.nodes.physics.VecMag">VecMag (class in hippynn.graphs.nodes.physics)</a>
 
       <ul>
