@@ -137,6 +137,10 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.excited.NACRMultiStateNode"><code class="docutils literal notranslate"><span class="pre">NACRMultiStateNode</span></code></a></li>
 <li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.excited.NACRNode"><code class="docutils literal notranslate"><span class="pre">NACRNode</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#hippynn.graphs.nodes.excited.SMAPEPhaseLoss"><code class="docutils literal notranslate"><span class="pre">SMAPEPhaseLoss</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="#hippynn.graphs.nodes.excited.SMAPEPhaseLoss.torch_module"><code class="docutils literal notranslate"><span class="pre">SMAPEPhaseLoss.torch_module</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="hippynn.graphs.nodes.indexers.html">indexers module</a></li>
@@ -280,6 +284,17 @@ between all pairs of states.</p>
 <dd><p>Bases: <a class="reference internal" href="hippynn.graphs.nodes.base.definition_helpers.html#hippynn.graphs.nodes.base.definition_helpers.AutoKw" title="hippynn.graphs.nodes.base.definition_helpers.AutoKw"><code class="xref py py-class docutils literal notranslate"><span class="pre">AutoKw</span></code></a>, <a class="reference internal" href="hippynn.graphs.nodes.base.base.html#hippynn.graphs.nodes.base.base.SingleNode" title="hippynn.graphs.nodes.base.base.SingleNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleNode</span></code></a></p>
 <p>Compute the non-adiabatic coupling vector multiplied by the energy difference
 between two states.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="hippynn.graphs.nodes.excited.SMAPEPhaseLoss">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SMAPEPhaseLoss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicted</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hippynn/graphs/nodes/excited.html#SMAPEPhaseLoss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#hippynn.graphs.nodes.excited.SMAPEPhaseLoss" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_BaseCompareLoss</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="hippynn.graphs.nodes.excited.SMAPEPhaseLoss.torch_module">
+<span class="sig-name descname"><span class="pre">torch_module</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">LambdaModule(_smape_with_phases)</span></em><a class="headerlink" href="#hippynn.graphs.nodes.excited.SMAPEPhaseLoss.torch_module" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>

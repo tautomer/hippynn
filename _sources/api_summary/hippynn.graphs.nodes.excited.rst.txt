@@ -29,4 +29,5 @@ This is summary documentation for hippynn.graphs.nodes.excited module.
       MSEPhaseLoss
       NACRMultiStateNode
       NACRNode
+      SMAPEPhaseLoss
    
