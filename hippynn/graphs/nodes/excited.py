@@ -168,8 +168,8 @@ def _mae_with_phases(predict: torch.Tensor, true: torch.Tensor):
     """
 
     errors = torch.minimum(
-        torch.linalg.norm((true - predict) / (torch.abs(true) + 1e-3), ord=1, dim=-1),
-        torch.linalg.norm((true + predict) / (torch.abs(true) + 1e-3), ord=1, dim=-1),
+        torch.linalg.norm((true - predict), ord=1, dim=-1),
+        torch.linalg.norm((true + predict), ord=1, dim=-1),
     )
     return torch.sum(errors) / predict[..., 0].numel()
 
@@ -186,8 +186,8 @@ def _mse_with_phases(predict: torch.Tensor, true: torch.Tensor):
     """
 
     errors = torch.minimum(
-        torch.linalg.norm((true - predict) / (torch.abs(true) + 1e-6), dim=-1),
-        torch.linalg.norm((true + predict) / (torch.abs(true) + 1e-6), dim=-1),
+        torch.linalg.norm((true - predict), dim=-1),
+        torch.linalg.norm((true + predict), dim=-1),
     )
     return torch.sum(errors**2) / predict[..., 0].numel()
 
@@ -269,3 +269,29 @@ class HuberPhaseLoss(_BaseCompareLoss):
         huber = partial(_huber_loss_with_phases, delta=delta)
         huber.__name__ = "_huber_loss_with_phases"
         super().__init_subclass__(op=huber)
+
+
+def _smape_with_phases(predict: torch.Tensor, true: torch.Tensor):
+    """Symmetric Mean Absolute Percentage Error (SMAPE) with phases
+
+    :param predict: predicted values
+    :type predict: torch.Tensor
+    :param true: true values
+    :type true: torch.Tensor
+    :return: MAE with phases
+    :rtype: torch.Tensor
+    """
+
+    errors = torch.minimum(
+        torch.linalg.norm(true - predict, ord=1, dim=-1),
+        torch.linalg.norm(true + predict, ord=1, dim=-1),
+    )
+    denom = (
+        torch.linalg.norm(true, ord=1, dim=-1)
+        + torch.linalg.norm(predict, ord=1, dim=-1)
+    ) / 2
+    return torch.sum(errors / denom) / predict[..., 0].numel()
+
+
+class SMAPEPhaseLoss(_BaseCompareLoss, op=_smape_with_phases):
+    pass

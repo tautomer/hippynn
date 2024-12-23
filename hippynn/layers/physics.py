@@ -16,7 +16,25 @@ class Gradient(torch.nn.Module):
         self.sign = sign
 
     def forward(self, molecular_energies, positions):
-        return self.sign * torch.autograd.grad(molecular_energies.sum(), positions, create_graph=True)[0]
+        n_targets = molecular_energies.shape[1]
+        if n_targets == 1:
+            force = (
+                self.sign
+                * torch.autograd.grad(
+                    molecular_energies.sum(), positions, create_graph=True
+                )[0]
+            )
+        else:
+            force = []
+            for i in range(n_targets):
+                tmp = torch.autograd.grad(
+                    molecular_energies[:, i].sum(), positions, create_graph=True
+                )[0]
+                force.append(tmp)
+            force = self.sign * torch.stack(force, dim=1)
+            n_molecule, n_pairs, n_atoms, n_dims = force.shape
+            force = force.reshape(n_molecule, n_pairs, n_atoms * n_dims)
+        return force
         
 class MultiGradient(torch.nn.Module):
     def __init__(self, signs):
